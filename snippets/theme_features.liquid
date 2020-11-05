@@ -1,0 +1,24 @@
+{% comment %}
+In order to reduce the number of theme settings, some features can be enabled/disabled through those special
+Liquid variables. You can turn them on and off to change some features.
+
+Here is a short documentation:
+
+- theme_features_slider_crop: by default, when your slider overlaps the header, we force a minimum height (of 700 pixels), and the
+image will be adjusted to fit into this space. As a consequence, some of your image may be cropped. If you want, you can turn this option
+to false, and instead Focal will not resize the image. However, you'll need to make sure that you upload a sufficiently tall images
+so that all your content can fit over the images.
+
+- theme_features_collection_enable_tag_filtering: allow to disable or enable the filtering by tags in collection pages.
+
+- theme_features_collection_enable_sorting: allow to disable or enable the sorting of products in collection pages.
+
+- theme_features_collection_enable_cumulative_tag_filtering: if set to true, product tags are cumulative (which means that clicking on another tag
+will add this tag to reduce even further the list
+{% endcomment %}
+
+{% assign theme_features_slider_crop = true %}
+
+{% assign theme_features_collection_enable_tag_filtering = false %}
+{% assign theme_features_collection_enable_sorting = true %}
+{% assign theme_features_collection_enable_cumulative_tag_filtering = false %}

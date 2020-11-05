@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="inner">
+    {% include 'list_collections', list_collections_linklist: linklists.all-collections, grid_items_per_row: section.settings.grid_items_per_row, allow_all_collections: true %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "settings": [
+    {
+      "type": "select",
+      "id": "grid_items_per_row",
+      "label": "Collections per row",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "2"
+    }
+  ]
+}
+{% endschema %}

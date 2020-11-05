@@ -1,0 +1,23 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        {% if search.performed %}
+          <p class="header__push-meta">{{ 'search.general.results_count' | t: count: search.results_count }}</p>
+        {% endif %}
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ 'search.general.title' | t }}</h1>
+
+          {% if search.performed %}
+            <p class="header__push-context">{{ 'search.general.search_for' | t: terms: search.terms }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+{% section 'search' %}

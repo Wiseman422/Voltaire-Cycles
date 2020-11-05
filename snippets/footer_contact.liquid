@@ -1,0 +1,13 @@
+<section class="footer__module" {{ block.shopify_attributes }}>
+  <h3 class="footer__title">{{ 'layout.footer.contact_title' | t }}</h3>
+
+  {% if block.settings.contact_phone != blank %}
+    <p>{{ 'layout.footer.contact_phone' | t: phone_number: block.settings.contact_phone }}</p>
+  {% endif %}
+
+  {% if block.settings.contact_email != blank %}
+    <p>
+      <a href="mailto:{{ block.settings.contact_email }}">{{ block.settings.contact_email }}</a>
+    </p>
+  {% endif %}
+</section>

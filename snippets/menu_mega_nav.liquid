@@ -1,0 +1,47 @@
+{% comment %}
+Mega nav uses nested linklists to build multi-column layouts
+{% endcomment %}
+
+{% if section.settings.navigation_horizontal_image != blank %}
+  {% assign navigation_horizontal_use_image = true %}
+{% else %}
+  {% assign navigation_horizontal_use_image = false %}
+{% endif %}
+
+<ul class="menu__links menu__links--nested menu__links--level-1 menu__mega-nav mega-nav {% if navigation_horizontal_use_image %}mega-nav--has-image{% endif %}">
+  {% if navigation_horizontal_use_image %}
+    <li class="mega-nav__image-container">
+      <img class="mega-nav__image" src="{{ section.settings.navigation_horizontal_image | img_url: '300x300' }}">
+    </li>
+  {% endif %}
+
+  {% for link in mega_nav.links %}
+    {% comment %}We ignore the sub-linklist if it does not have children{% endcomment %}
+
+    {% if linklists[link.handle].links.size == 0 %}
+      {% continue %}
+    {% endif %}
+
+    <li class="mega-nav__dropdown-column dropdown-column">
+      <a href="{{ link.url }}" class="dropdown-column__title">{{ link.title }}</a>
+
+      <ul class="dropdown-column__list list--unstyled">
+        {% for sub_link in linklists[link.handle].links %}
+          {% assign sub_link_image = '' %}
+
+          {% if navigation_horizontal_use_image and section.settings.navigation_horizontal_switch_image %}
+            {% if sub_link.type == 'collection_link' and sub_link.object.image %}
+              {% assign sub_link_image = sub_link.object.image | img_url: '300x300' %}
+            {% elsif sub_link.type == 'product_link' and sub_link.object.featured_image %}
+              {% assign sub_link_image = sub_link.object.featured_image | img_url: '300x300' %}
+            {% endif %}
+          {% endif %}
+
+          <li class="dropdown-column__list-item">
+            <a href="{{ sub_link.url }}" class="dropdown-column__list-link" {% if sub_link_image != blank %}data-image="{{ sub_link_image }}"{% endif %}>{{ sub_link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ul>

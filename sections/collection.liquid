@@ -1,0 +1,147 @@
+{% if template != 'collection.infinite-scroll' %}
+  <div class="collection container">
+    <div class="inner">
+      {% if collection.description != blank %}
+        <div class="collection__description rte">
+          {{ collection.description }}
+        </div>
+      {% endif %}
+
+      {% if collection.products_count > 0 %}
+        {% assign number_of_products = section.settings.number_of_rows | times: section.settings.grid_items_per_row %}
+
+        {% paginate collection.products by number_of_products %}
+          {% include 'list_products', grid_items_per_row: section.settings.grid_items_per_row, show_vendor: section.settings.show_vendor, show_quick_shop: section.settings.show_quick_shop, show_colors: section.settings.show_colors, show_alternate_image: section.settings.show_alternate_image %}
+        {% assign dm_paginate_by = paginate.page_size %}{% endpaginate %}
+      {% else %}
+        <div class="collection__empty">
+          {% if current_tags.size > 0 %}
+            <p>{{ 'collection.general.empty_with_tags' | t }}</p>
+            <a href="/collections/{{ collection.handle }}" class="button button--primary">{{ 'collection.general.back_collection' | t }}</a>
+          {% else %}
+            <p>{{ 'collection.general.empty' | t }}</p>
+            <a href="{{ shop.url }}" class="button button--primary">{{ 'collection.general.back_home' | t }}</a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  {% assign number_of_products = section.settings.number_of_rows | times: section.settings.grid_items_per_row %}
+
+  {% paginate collection.products by number_of_products %}
+    {% include 'list_products', grid_items_per_row: section.settings.grid_items_per_row, show_vendor: section.settings.show_vendor, show_quick_shop: section.settings.show_quick_shop, show_colors: section.settings.show_colors, show_alternate_image: section.settings.show_alternate_image %}
+  {% assign dm_paginate_by = paginate.page_size %}{% endpaginate %}
+{% endif %}
+
+{% if dm_paginate_by %}{% render 'spurit_dmr_collection_template_snippet', paginate_by: dm_paginate_by %}{% endif %}{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_shop",
+      "label": "Show quick shop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_colors",
+      "label": "Show available colors",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_alternate_image",
+      "label": "Show alternate image on hover",
+      "default": false
+    },
+    {
+      "type": "radio",
+      "id": "pagination_mode",
+      "label": "Pagination mode",
+      "options": [
+        {
+          "value": "pagination",
+          "label": "Standard pagination"
+        },
+        {
+          "value": "infinite_scrolling",
+          "label": "Infinite scrolling"
+        }
+      ],
+      "default": "pagination"
+    },
+    {
+      "type": "select",
+      "id": "grid_items_per_row",
+      "label": "Products per row",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "number_of_rows",
+      "label": "Number of rows",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ],
+      "default": "3"
+    }
+  ]
+}
+{% endschema %}

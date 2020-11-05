@@ -1,0 +1,80 @@
+{% if product.selected_or_first_available_variant.image %}
+  {% assign initial_image_position = product.selected_or_first_available_variant.image.position | minus: 1 %}
+{% else %}
+  {% assign initial_image_position = 0 %}
+{% endif %}
+
+<div class="product__slideshow grid__cell {{ product_showcase_grid_class }}">
+  <ul class="product__slideshow--main list--unstyled"
+      data-initial-slide="{{ initial_image_position }}"
+      data-zoom-enabled="{{ section.settings.showcase_zoom_enabled }}"
+      data-zoom-magnification="{{ section.settings.showcase_zoom_magnification }}">
+    {% comment %}
+    If a product has no image, product.images will return nothing, which is problematic with the slider. To that extent, we use the featured image, which
+    always return Shopify default image
+    {% endcomment %}
+
+    {% if product.images.size == 0 %}
+      <li class="product__slideshow-slide" data-type="image" data-image-id="{{ product.featured_image.id }}" data-image-large-url="{{ product.featured_image | img_url: '1400x' }}">
+        <img class="product__slideshow-image" src="{{ product.featured_image | img_url: product_showcase_image_size }}" alt="{{ product.featured_image.alt | escape }}">
+      </li>
+    {% else %}
+      {% if product.selected_or_first_available_variant.image %}
+        {% assign first_image_id = product.selected_or_first_available_variant.image.id %}
+      {% else %}
+        {% assign first_image_id = product.images[0].id %}
+      {% endif %}
+
+      {% for image in product.images %}
+        {% comment %} We do not display videos here {% endcomment %}
+
+        {% unless image.alt contains 'youtube.com/embed' or image.alt contains 'player.vimeo.com' %}
+          {% if first_image_id == image.id %}
+            {% assign is_current_image = true %}
+          {% else %}
+            {% assign is_current_image = false %}
+          {% endif %}
+
+          <li class="product__slideshow-slide" data-type="image" data-image-id="{{ image.id }}" data-image-large-url="{{ image | img_url: '1400x' }}" {% unless is_current_image %}style="display: none;"{% endunless %}>
+            <img class="product__slideshow-image" src="{{ image | img_url: product_showcase_image_size }}" alt="{{ image.alt | escape }}">
+          </li>
+        {% else %}
+          <li class="product__slideshow-slide" data-type="video" {% unless forloop.first %}style="display: none;"{% endunless %}>
+            {% if template contains 'product' %}
+              <div class="product__video-wrapper video-wrapper">
+                <iframe class="product__slideshow-video" width="560" height="349" src="{{ image.alt }}" frameborder="0" allowfullscreen=""></iframe>
+              </div>
+            {% else %}
+              {% comment %}
+              We are going to use the YouTube or Vimeo API to fetch the preview URL
+              {% endcomment %}
+
+              {% if image.alt contains 'youtube.com' %}
+                {% assign youtube_video_id = image.alt | split: 'embed/' | last | split: '?' | first %}
+                {% assign video_thumbnail_url = '//img.youtube.com/vi/' | append: youtube_video_id | append: '/hqdefault.jpg' %}
+              {% else %}
+                {% assign video_thumbnail_url = image | img_url: 'grande' %}
+              {% endif %}
+
+              <div class="product_slideshow-placeholder-container">
+                <img class="product__slideshow-placeholder" src="{{ video_thumbnail_url }}" data-video-url="{{ image.alt }}">
+                <span class="product__slideshow-play"></span>
+              </div>
+            {% endif %}
+          </li>
+        {% endunless %}
+      {% endfor %}
+    {% endif %}
+  </ul>
+
+  {% if product.images.size > 1 %}
+    <div class="product__slideshow--nav">
+      {% for image in product.images %}
+        <img src="{{ image | img_url: '140x' }}"
+             class="product__slideshow-nav-image product__slideshow-nav-image--{{ section.settings.thumbnails_appearance }}"
+             alt="{{ image.alt }}"
+             data-slide-index="{{ forloop.index0 }}">
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

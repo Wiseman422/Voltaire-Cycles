@@ -1,0 +1,27 @@
+{% comment %}
+This snippet is used to extract an image from any text, and store it as part of the src variable. Optionally,
+you can pass an "img_size" option to generate a different size of the image. Here is an exemple usage, to
+extract the first image of a blog article:
+
+{% assign src = '' %}
+{% include 'img_src_from_text', content: article.excerpt_or_content, img_size: 'pico' %}
+
+Now, the URL will be stored in URL. If no image could be found, src will be empty
+
+{% endcomment %}
+
+{% if content contains "<img" %}
+  {% assign src = content | split: 'src="' %}
+  {% assign src = src[1] | split: '"' | first %}
+{% endif %}
+
+{% if src != blank and img_size != blank %}
+  {% capture size_replacement %}_{{img_size}}.{% endcapture %}
+
+  {% assign sizes = 'pico icon thumb small compact medium large grande 1024x1024 2048x2048' | split:' ' %}
+
+  {% for size in sizes %}
+    {% capture size_to_search %}_{{size}}.{% endcapture %}
+    {% assign src = src | replace: size_to_search, size_replacement %}
+  {% endfor %}
+{% endif %}

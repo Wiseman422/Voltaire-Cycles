@@ -1,0 +1,35 @@
+{% comment %}
+This snippet is used to display a single collection in the context of list of collections. This is NOT
+used to display products of a collection
+{% endcomment %}
+
+{% if collection.image %}
+  {% assign collection_image = collection.image %}
+{% else %}
+  {% assign collection_image = collection.products.first.featured_image %}
+{% endif %}
+
+{% case grid_items_per_row %}
+  {% when '2' or 2 %}
+    {% assign image_size = '800x' %}
+
+  {% when '3' or 3 %}
+    {% assign image_size = '650x' %}
+
+  {% when '4' or 4 %}
+    {% assign image_size = '450x' %}
+
+  {% when '5' or 5 %}
+    {% assign image_size = '350x' %}
+
+  {% when '6' or 6 %}
+    {% assign image_size = '250x' %}
+{% endcase %}
+
+<div class="1/2--handheld 1/{{ grid_items_per_row }}--lap-and-up grid__cell" {{ block.shopify_attributes }}>
+  <a href="{{ collection_url }}" class="collections__item">
+    <img class="collections__image" src="{{ collection_image | img_url: image_size }}" alt="{{ collection_image.alt | escape }}">
+    <div class="collections__overlay"></div>
+    <h3 class="collections__title">{{ collection_title }}</h3>
+  </a>
+</div>

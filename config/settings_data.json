@@ -1,0 +1,1097 @@
+{
+  "current": {
+    "background": "#ffffff",
+    "heading_color": "#91814d",
+    "text_color": "#919191",
+    "accent_color": "#91814d",
+    "border_color": "#e4e4e4",
+    "primary_button_color": "#ffffff",
+    "primary_button_background": "#91814d",
+    "secondary_button_color": "#ffffff",
+    "secondary_button_background": "#d8d6c3",
+    "popup_color": "#f2efe8",
+    "header_text_color": "#ffffff",
+    "header_background": "#000414",
+    "footer_background": "#282828",
+    "footer_border_color": "#505050",
+    "footer_title_color": "#91814d",
+    "footer_text_color": "#6f6f6f",
+    "slideshow_heading_color": "#ffffff",
+    "slideshow_subheading_color": "#91814d",
+    "slideshow_button_color": "#91814d",
+    "slideshow_button_background": "#ffffff",
+    "collection_description_color": "#4f4f4f",
+    "collection_description_background": "#ffffff",
+    "product_sold_out_background": "#e52c3e",
+    "product_on_sale_background": "#91814d",
+    "product_related_products_background": "#f3f4f4",
+    "heading_font": "Google_Playfair+Display",
+    "text_font": "Google_Roboto",
+    "footer_font_factor": "1.1",
+    "slideshow_heading_font": "Google_Playfair+Display",
+    "slideshow_heading_font_factor": "1",
+    "slideshow_subheading_font": "Google_Montserrat",
+    "slideshow_subheading_font_factor": "1",
+    "marketing_popup_enabled": false,
+    "marketing_popup_title": "Summer Holiday Hours!",
+    "marketing_popup_content": "<p>Beginning August 12th - through September 2nd, We will be closed on <strong><em>Mondays only<\/em> <\/strong>for summer holiday. Our normal hours for Tuesday-Saturday will continue. Thank you for all for your patronage.<\/p>\n<p><\/p>\n<p>Keep Riding Free.<\/p>",
+    "marketing_popup_show_newsletter": false,
+    "marketing_popup_image": "shopify:\/\/shop_images\/pexels-photo-908283.jpeg",
+    "marketing_popup_delay": "0",
+    "marketing_popup_only_on_index": true,
+    "marketing_popup_only_visitors": false,
+    "marketing_popup_remember_me": "0",
+    "currency_conversion_enabled": false,
+    "currency_conversion_supported_currencies": "USD CAD EUR GBP",
+    "currency_conversion_default_currency": "USD",
+    "search_mode": "product,article,page",
+    "social_facebook": "https:\/\/www.facebook.com\/electricspokescompany\/",
+    "social_twitter": "",
+    "social_google_plus": "https:\/\/plus.google.com\/+Electricspokescompany",
+    "social_pinterest": "https:\/\/www.pinterest.com\/electricspokes\/",
+    "social_instagram": "https:\/\/www.instagram.com\/electricspokes\/",
+    "social_vimeo": "",
+    "social_tumblr": "",
+    "social_youtube": "https:\/\/www.youtube.com\/channel\/UCxo0KM7vyEz3t_1HI8xXkUA\/featured?view_as=subscriber",
+    "social_fancy": "",
+    "favicon": "shopify:\/\/shop_images\/favicon.png",
+    "checkout_header_image": "shopify:\/\/shop_images\/checkout_header_image_2_d72ef909-5f21-4777-acda-281d55014421.jpg",
+    "checkout_logo_image": "shopify:\/\/shop_images\/checkout_logo_2_5c0d9b32-d840-4762-8e33-aada95c1ac0d.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "large",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_accent_color": "#e52c3e",
+    "checkout_button_color": "#e52c3e",
+    "checkout_error_color": "#e52c3e",
+    "product_tabs_background": "#000000",
+    "sections": {
+      "slideshow": {
+        "type": "slideshow",
+        "blocks": {
+          "slideshow-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Orbea-Wild-FS_140mm-full-suspension-eMTB-ebike-trail-mountain-bike_drop.jpg",
+              "content_position": "center",
+              "heading": "",
+              "subheading": "",
+              "button_text": "",
+              "link": ""
+            }
+          },
+          "1491072556517": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/download_f8280830-eb3c-4ecb-8865-a8a68dd7c6d3.jpg",
+              "content_position": "center",
+              "heading": "",
+              "subheading": "",
+              "button_text": "",
+              "link": "shopify:\/\/collections\/mothers-day-sale"
+            }
+          },
+          "1491072465104": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/2_Travelers_Felt4-1024x501.jpg",
+              "content_position": "center",
+              "heading": "Ride for Recreation",
+              "subheading": "",
+              "button_text": "",
+              "link": "shopify:\/\/collections\/terratrike"
+            }
+          },
+          "1491071698130": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/e92903dea23a33de867fd9b54e4bdb14.jpg",
+              "content_position": "left",
+              "heading": "Ride for Fun",
+              "subheading": "",
+              "button_text": "",
+              "link": ""
+            }
+          },
+          "slideshow-1": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Boosted_Electric_Skateboard_sold_by_The_Electric_Spokes_Company.jpg",
+              "content_position": "right",
+              "heading": "Ride for Free",
+              "subheading": "",
+              "button_text": "",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "slideshow-0",
+          "1491072556517",
+          "1491072465104",
+          "1491071698130",
+          "slideshow-1"
+        ],
+        "settings": {
+          "separate_from_header": true,
+          "autoplay": true,
+          "animation_type": "slide",
+          "cycle_speed": "2000"
+        }
+      },
+      "featured-images": {
+        "type": "home_featured_images",
+        "blocks": {
+          "image-1": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/ELECTRA_BIKES_1.png",
+              "link": "shopify:\/\/collections\/electra-bicycles"
+            }
+          },
+          "image-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/BIG_BUD_PRO_5.jpg",
+              "link": "shopify:\/\/collections\/fat-tire-e-bikes"
+            }
+          },
+          "image-2": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/cattrikemarch18th-49-L.jpg",
+              "link": "shopify:\/\/collections\/catrike-1"
+            }
+          }
+        },
+        "block_order": [
+          "image-1",
+          "image-0",
+          "image-2"
+        ],
+        "settings": {
+          "show_on_mobile": true,
+          "layout": "3"
+        }
+      },
+      "featured-products": {
+        "type": "home_featured_products",
+        "settings": {
+          "title": "Great Bargains on New E-Bikes!",
+          "collection": "great-bargains-on-new-e-bikes",
+          "show_vendor": true,
+          "show_quick_shop": true,
+          "show_colors": true,
+          "show_alternate_image": true,
+          "grid_items_per_row": "3",
+          "text_color": "#8a8787",
+          "background_color": "rgba(0,0,0,0)"
+        }
+      },
+      "featured-content": {
+        "type": "home_featured_content",
+        "blocks": {
+          "text-0": {
+            "type": "richtext",
+            "settings": {
+              "content": "<p>We are New Jersey's largest specialty cycle shop located at 400 Bloomfield Avenue in Verona. Our&nbsp;store features the largest selection of e-bikes, trikes, specialty bikes, and scooters that you will find anywhere. We are a brick-n-mortar dealership with a full retail showroom where you can view many of the models featured on this website. We service all of the brands we carry and provide additional repair and warranty service for many brands not listed here. Call us at (973) 500-3082 to schedule a demonstration ride. Electric powered mobility is here to stay. Join the e-revolution and ride far, and ride free.&nbsp;<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "text-0"
+        ],
+        "settings": {
+          "title": "The Electric Spokes Company",
+          "content_position": "center",
+          "text_color": "#ffffff",
+          "background_color": "#91814d"
+        }
+      },
+      "featured-collections": {
+        "type": "home_featured_collections",
+        "blocks": {
+          "collection-3": {
+            "type": "collection",
+            "settings": {
+              "collection": "e-bikes-for-women"
+            }
+          },
+          "collection-4": {
+            "type": "collection",
+            "settings": {
+              "collection": "e-bikes-for-men"
+            }
+          },
+          "collection-5": {
+            "type": "collection",
+            "settings": {
+              "collection": "helmets"
+            }
+          },
+          "collection-0": {
+            "type": "collection",
+            "settings": {
+              "collection": "e-bikes-under-2000"
+            }
+          },
+          "collection-2": {
+            "type": "collection",
+            "settings": {
+              "collection": "bicycle-bags-baskets"
+            }
+          },
+          "collection-1": {
+            "type": "collection",
+            "settings": {
+              "collection": "speed-pedelec-collection"
+            }
+          }
+        },
+        "block_order": [
+          "collection-3",
+          "collection-4",
+          "collection-5",
+          "collection-0",
+          "collection-2",
+          "collection-1"
+        ],
+        "settings": {
+          "title": "Collections list",
+          "grid_items_per_row": "3",
+          "text_color": "#9f9a91",
+          "background_color": "#222222"
+        }
+      },
+      "featured-blog": {
+        "type": "home_featured_blog",
+        "settings": {
+          "title": "Featured blog",
+          "blog": "news",
+          "show_author": false,
+          "text_color": "#8a8787",
+          "background_color": "#f3f4f4"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify:\/\/shop_images\/ES_RECOLOR_A_3000px_88419dc8-9220-4c8a-a273-628357aab9b2.png",
+          "logo_max_width": "300",
+          "background_image": "",
+          "show_announcement": true,
+          "announcement_color": "#ffffff",
+          "announcement_background": "rgba(25,25,25,0.7)",
+          "announcement_text": "Located at 400 Bloomfield Avenue, Verona, NJ 07044",
+          "announcement_show_social": true,
+          "announcement_contact_phone": "(973) 500 3082",
+          "announcement_contact_email": "info@electricspokesco.com",
+          "navigation_menu": "",
+          "navigation_position": "center",
+          "navigation_horizontal_mega_nav": "main-menu",
+          "navigation_horizontal_image": "",
+          "navigation_horizontal_switch_image": false
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "text",
+            "settings": {
+              "custom_content_heading": "About Electric Spokes",
+              "custom_content_text": "The Electric Spokes Company is a specialty bike shop. We specialize in cycling solutions including electric-assist, recumbents, trikes, cargo, special needs. We believe that if there is a transit need, there is a cycling solution..."
+            }
+          },
+          "footer-1": {
+            "type": "menu",
+            "settings": {
+              "menu_linklist": "footer"
+            }
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "footer-1"
+        ],
+        "settings": {
+          "show_payment_methods": true
+        }
+      },
+      "collection": {
+        "type": "collection",
+        "settings": {
+          "show_vendor": true,
+          "show_quick_shop": true,
+          "show_colors": true,
+          "show_alternate_image": true,
+          "pagination_mode": "infinite_scrolling",
+          "grid_items_per_row": "3",
+          "number_of_rows": "6"
+        }
+      },
+      "product": {
+        "type": "product",
+        "settings": {
+          "show_vendor": true,
+          "show_inventory": false,
+          "show_color_swatch": false,
+          "ajax_add_to_cart": true,
+          "add_to_cart_text": "",
+          "always_show_description": false,
+          "showcase_columns": "normal",
+          "thumbnails_appearance": "rounded",
+          "showcase_zoom_enabled": true,
+          "showcase_zoom_magnification": "1",
+          "tab_page_1_handle": "",
+          "tab_page_2_handle": "",
+          "reviews_enabled": false,
+          "related_products_enabled": true,
+          "related_products_show_vendor": true,
+          "related_products_grid_items": "6"
+        }
+      },
+      "cart": {
+        "type": "cart",
+        "settings": {
+          "show_notes": true,
+          "show_vendor": true,
+          "enable_terms": false,
+          "terms_page": "",
+          "show_shipping_estimator": true,
+          "shipping_estimator_default_country": "United States"
+        }
+      },
+      "1516218160213": {
+        "type": "home_featured_video",
+        "settings": {
+          "title": "Your video",
+          "youtube_video": "https:\/\/www.youtube.com\/watch?v=EcR9kFOfkGA",
+          "show_video_controls": true,
+          "text_color": "#000000",
+          "background_color": "#ffffff"
+        }
+      },
+      "1516219002567": {
+        "type": "home_instagram",
+        "settings": {
+          "title": "Instagram",
+          "access_token": "2280337422.6a7999e.298503cdfd674293bc4b0dedd53a289f",
+          "image_per_row": "4",
+          "number_of_rows": "2",
+          "text_color": "#000000",
+          "background_color": "#91814d"
+        }
+      },
+      "1580791010935": {
+        "type": "home_featured_video",
+        "settings": {
+          "title": "E-Bike Racing",
+          "youtube_video": "https:\/\/youtu.be\/oMxLI6DbjL8",
+          "show_video_controls": true,
+          "text_color": "#000000",
+          "background_color": "#ffffff"
+        }
+      }
+    },
+    "content_for_index": [
+      "slideshow",
+      "featured-images",
+      "featured-content",
+      "featured-products",
+      "featured-collections",
+      "1580791010935",
+      "featured-blog",
+      "1516218160213",
+      "1516219002567"
+    ]
+  },
+  "presets": {
+    "Standard": {
+      "background": "#ffffff",
+      "heading_color": "#161e26",
+      "text_color": "#919191",
+      "accent_color": "#1790d3",
+      "border_color": "#e4e4e4",
+      "primary_button_color": "#ffffff",
+      "primary_button_background": "#1790d3",
+      "secondary_button_color": "#ffffff",
+      "secondary_button_background": "#3f3f3f",
+      "popup_color": "#919191",
+      "header_text_color": "#ffffff",
+      "header_background": "#000414",
+      "footer_background": "#282828",
+      "footer_border_color": "#505050",
+      "footer_title_color": "#f6bb42",
+      "footer_text_color": "#6f6f6f",
+      "slideshow_heading_color": "#ffffff",
+      "slideshow_subheading_color": "#ec7067",
+      "slideshow_button_color": "#ec7067",
+      "slideshow_button_background": "#ffffff",
+      "collection_description_color": "#4f4f4f",
+      "collection_description_background": "#e6e6e6",
+      "product_sold_out_background": "#e95842",
+      "product_on_sale_background": "#e95842",
+      "product_tabs_background": "#000000",
+      "product_related_products_background": "#f3f4f4",
+      "heading_font": "Google_Playfair+Display",
+      "text_font": "Google_Roboto",
+      "footer_font_factor": "1",
+      "slideshow_heading_font": "Google_Playfair+Display",
+      "slideshow_heading_font_factor": "1",
+      "slideshow_subheading_font": "Google_Montserrat",
+      "slideshow_subheading_font_factor": "1",
+      "sections": {
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "slideshow-1": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {}
+        },
+        "featured-images": {
+          "type": "home_featured_images",
+          "blocks": {
+            "image-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-1": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-2": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "image-0",
+            "image-1",
+            "image-2"
+          ],
+          "settings": {
+            "show_on_mobile": true,
+            "layout": "3"
+          }
+        },
+        "featured-products": {
+          "type": "home_featured_products",
+          "settings": {
+            "collection": "frontpage",
+            "text_color": "#8a8787",
+            "background_color": "#f3f4f4"
+          }
+        },
+        "newsletter": {
+          "type": "home_newsletter",
+          "settings": {
+            "text_color": "#ffffff",
+            "background_color": "#ada89f",
+            "input_background": "#d9d5cc"
+          }
+        },
+        "featured-content": {
+          "type": "home_featured_content",
+          "blocks": {
+            "text-0": {
+              "type": "richtext",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "text-0"
+          ],
+          "settings": {
+            "text_color": "#ffffff",
+            "background_color": "#ec7067"
+          }
+        },
+        "featured-collections": {
+          "type": "home_featured_collections",
+          "blocks": {
+            "collection-0": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-1": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-2": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-3": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-4": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-5": {
+              "type": "collection",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "collection-0",
+            "collection-1",
+            "collection-2",
+            "collection-3",
+            "collection-4",
+            "collection-5"
+          ],
+          "settings": {
+            "text_color": "#9f9a91",
+            "background_color": "#222222"
+          }
+        },
+        "featured-blog": {
+          "type": "home_featured_blog",
+          "settings": {
+            "blog": "news",
+            "text_color": "#8a8787",
+            "background_color": "#f3f4f4"
+          }
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "featured-images",
+        "featured-content",
+        "featured-products",
+        "newsletter",
+        "featured-collections",
+        "featured-blog"
+      ]
+    },
+    "Black Box": {
+      "background": "#f7f7f7",
+      "heading_color": "#6f6f6f",
+      "text_color": "#919191",
+      "accent_color": "#99cc66",
+      "border_color": "#dddddd",
+      "primary_button_color": "#ffffff",
+      "primary_button_background": "#3cc0df",
+      "secondary_button_color": "#ffffff",
+      "secondary_button_background": "#31383e",
+      "popup_color": "#919191",
+      "header_text_color": "#ffffff",
+      "header_background": "#31383e",
+      "footer_background": "#31383e",
+      "footer_border_color": "#626d7a",
+      "footer_title_color": "#ffffff",
+      "footer_text_color": "#6c7885",
+      "slideshow_heading_color": "#ffffff",
+      "slideshow_subheading_color": "#3cc0df",
+      "slideshow_button_color": "#3cc0df",
+      "slideshow_button_background": "#ffffff",
+      "collection_description_color": "#ffffff",
+      "collection_description_background": "#31383e",
+      "product_sold_out_background": "#31383e",
+      "product_on_sale_background": "#f15656",
+      "product_related_products_background": "#ffffff",
+      "heading_font": "Google_Lato",
+      "text_font": "Google_Open+Sans",
+      "footer_font_factor": "1",
+      "slideshow_heading_font": "Google_Quicksand",
+      "slideshow_heading_font_factor": "1",
+      "slideshow_subheading_font": "Google_Kalam",
+      "slideshow_subheading_font_factor": "1",
+      "sections": {
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "slideshow-1": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {}
+        },
+        "featured-images": {
+          "type": "home_featured_images",
+          "blocks": {
+            "image-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-1": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-2": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "image-0",
+            "image-1",
+            "image-2"
+          ],
+          "settings": {
+            "show_on_mobile": true,
+            "layout": "3"
+          }
+        },
+        "featured-products": {
+          "type": "home_featured_products",
+          "settings": {
+            "collection": "frontpage",
+            "text_color": "#ffffff",
+            "background_color": "#99cc66"
+          }
+        },
+        "newsletter": {
+          "type": "home_newsletter",
+          "settings": {
+            "text_color": "#ffffff",
+            "background_color": "#31383e",
+            "input_background": "#292f35"
+          }
+        },
+        "featured-content": {
+          "type": "home_featured_content",
+          "blocks": {
+            "text-0": {
+              "type": "richtext",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "text-0"
+          ],
+          "settings": {
+            "text_color": "#ffffff",
+            "background_color": "#3cc0df"
+          }
+        },
+        "featured-collections": {
+          "type": "home_featured_collections",
+          "blocks": {
+            "collection-0": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-1": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-2": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-3": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-4": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-5": {
+              "type": "collection",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "collection-0",
+            "collection-1",
+            "collection-2",
+            "collection-3",
+            "collection-4",
+            "collection-5"
+          ],
+          "settings": {
+            "text_color": "#31383e",
+            "background_color": "#ffffff"
+          }
+        },
+        "featured-blog": {
+          "type": "home_featured_blog",
+          "settings": {
+            "blog": "news",
+            "text_color": "#ffffff",
+            "background_color": "#31383e"
+          }
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "featured-images",
+        "featured-content",
+        "featured-products",
+        "newsletter",
+        "featured-collections",
+        "featured-blog"
+      ]
+    },
+    "Sea": {
+      "background": "#ffffff",
+      "heading_color": "#54d7e3",
+      "text_color": "#919191",
+      "accent_color": "#54d7e3",
+      "border_color": "#e4e4e4",
+      "primary_button_color": "#ffffff",
+      "primary_button_background": "#54d7e3",
+      "secondary_button_color": "#ffffff",
+      "secondary_button_background": "#f47735",
+      "popup_color": "#919191",
+      "header_text_color": "#ffffff",
+      "header_background": "#54d7e3",
+      "footer_background": "#54d7e3",
+      "footer_border_color": "#6ce5f5",
+      "footer_title_color": "#ffffff",
+      "footer_text_color": "#ffffff",
+      "slideshow_heading_color": "#ffffff",
+      "slideshow_subheading_color": "#f47735",
+      "slideshow_button_color": "#f47735",
+      "slideshow_button_background": "#ffffff",
+      "collection_description_color": "#ffffff",
+      "collection_description_background": "#f47735",
+      "product_sold_out_background": "#2c2c2c",
+      "product_on_sale_background": "#f47735",
+      "product_related_products_background": "#f3f4f4",
+      "heading_font": "Google_Montserrat",
+      "text_font": "Google_Montserrat",
+      "footer_font_factor": "1",
+      "slideshow_heading_font": "Google_Playfair+Display",
+      "slideshow_heading_font_factor": "1",
+      "slideshow_subheading_font": "Google_Montserrat",
+      "slideshow_subheading_font_factor": "1",
+      "sections": {
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "slideshow-1": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {}
+        },
+        "featured-images": {
+          "type": "home_featured_images",
+          "blocks": {
+            "image-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-1": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-2": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "image-0",
+            "image-1",
+            "image-2"
+          ],
+          "settings": {
+            "show_on_mobile": true,
+            "layout": "3"
+          }
+        },
+        "featured-products": {
+          "type": "home_featured_products",
+          "settings": {
+            "collection": "frontpage",
+            "text_color": "#54d7e3",
+            "background_color": "#ffffff"
+          }
+        },
+        "newsletter": {
+          "type": "home_newsletter",
+          "settings": {
+            "text_color": "#ffffff",
+            "background_color": "#54d7e3",
+            "input_background": "#9cf7ff"
+          }
+        },
+        "featured-content": {
+          "type": "home_featured_content",
+          "blocks": {
+            "text-0": {
+              "type": "richtext",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "text-0"
+          ],
+          "settings": {
+            "text_color": "#ffffff",
+            "background_color": "#54d7e3"
+          }
+        },
+        "featured-collections": {
+          "type": "home_featured_collections",
+          "blocks": {
+            "collection-0": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-1": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-2": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-3": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-4": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-5": {
+              "type": "collection",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "collection-0",
+            "collection-1",
+            "collection-2",
+            "collection-3",
+            "collection-4",
+            "collection-5"
+          ],
+          "settings": {
+            "text_color": "#54d7e3",
+            "background_color": "#f3f4f4"
+          }
+        },
+        "featured-blog": {
+          "type": "home_featured_blog",
+          "settings": {
+            "blog": "news",
+            "text_color": "#54d7e3",
+            "background_color": "#f3f4f4"
+          }
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "featured-images",
+        "featured-content",
+        "featured-products",
+        "newsletter",
+        "featured-collections",
+        "featured-blog"
+      ]
+    },
+    "Giveat": {
+      "background": "#ffffff",
+      "heading_color": "#635443",
+      "text_color": "#6f6f6f",
+      "accent_color": "#fa5555",
+      "border_color": "#dfdfdf",
+      "primary_button_color": "#ffffff",
+      "primary_button_background": "#fa5555",
+      "secondary_button_color": "#ffffff",
+      "secondary_button_background": "#ebd7b5",
+      "popup_color": "#ffffff",
+      "header_text_color": "#ffffff",
+      "header_background": "#fa5555",
+      "footer_background": "#d2b492",
+      "footer_border_color": "#ebd7b5",
+      "footer_title_color": "#956229",
+      "footer_text_color": "#ffffff",
+      "slideshow_heading_color": "#ffffff",
+      "slideshow_subheading_color": "#ec7067",
+      "slideshow_button_color": "#ec7067",
+      "slideshow_button_background": "#ffffff",
+      "collection_description_color": "#4f4f4f",
+      "collection_description_background": "#e6e6e6",
+      "product_sold_out_background": "#e95842",
+      "product_on_sale_background": "#e95842",
+      "product_related_products_background": "#f3f4f4",
+      "heading_font": "Google_Dosis",
+      "text_font": "Google_Roboto",
+      "footer_font_factor": "1",
+      "slideshow_heading_font": "Google_Dosis",
+      "slideshow_heading_font_factor": "1",
+      "slideshow_subheading_font": "Google_Montserrat",
+      "slideshow_subheading_font_factor": "1",
+      "sections": {
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "slideshow-1": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {}
+        },
+        "featured-images": {
+          "type": "home_featured_images",
+          "blocks": {
+            "image-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-1": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-2": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "image-0",
+            "image-1",
+            "image-2"
+          ],
+          "settings": {
+            "show_on_mobile": true,
+            "layout": "3"
+          }
+        },
+        "featured-products": {
+          "type": "home_featured_products",
+          "settings": {
+            "collection": "frontpage",
+            "text_color": "#8a8787",
+            "background_color": "#f3f4f4"
+          }
+        },
+        "newsletter": {
+          "type": "home_newsletter",
+          "settings": {
+            "text_color": "#d2b492",
+            "background_color": "#635443",
+            "input_background": "#a89279"
+          }
+        },
+        "featured-content": {
+          "type": "home_featured_content",
+          "blocks": {
+            "text-0": {
+              "type": "richtext",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "text-0"
+          ],
+          "settings": {
+            "text_color": "#ffffff",
+            "background_color": "#ec7067"
+          }
+        },
+        "featured-collections": {
+          "type": "home_featured_collections",
+          "blocks": {
+            "collection-0": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-1": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-2": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-3": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-4": {
+              "type": "collection",
+              "settings": {}
+            },
+            "collection-5": {
+              "type": "collection",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "collection-0",
+            "collection-1",
+            "collection-2",
+            "collection-3",
+            "collection-4",
+            "collection-5"
+          ],
+          "settings": {
+            "text_color": "#9f9a91",
+            "background_color": "#222222"
+          }
+        },
+        "featured-blog": {
+          "type": "home_featured_blog",
+          "settings": {
+            "blog": "news",
+            "text_color": "#8a8787",
+            "background_color": "#f3f4f4"
+          }
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "featured-images",
+        "featured-content",
+        "featured-products",
+        "newsletter",
+        "featured-collections",
+        "featured-blog"
+      ]
+    }
+  }
+}

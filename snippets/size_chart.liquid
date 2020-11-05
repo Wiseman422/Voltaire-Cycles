@@ -1,0 +1,42 @@
+{% comment %}
+We check the existence of a page with a handle "size-chart". Then, we iterate through all options to look
+for the option called "size"
+{% endcomment %}
+
+{% unless pages['size-chart'].empty? %}
+  {% if form_type == 'main-product' %}
+    {% assign found_size_option = false %}
+    {% assign size_option_index = 0 %}
+
+    {% for option in product.options %}
+      {% assign downcased_option = option | downcase %}
+
+      {% if downcased_option contains 'size' or downcased_option contains 'size' or downcased_option contains 'taille' %}
+        {% assign found_size_option = true %}
+        {% assign size_option_index = forloop.index0 %}
+
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% if found_size_option %}
+      <a class="product__size-chart" href="#size-chart" data-product="{{ product.id }}" data-option-index="{{ size_option_index }}">
+        {{ 'product.general.size_chart' | t }}
+      </a>
+
+      <div class="modal size-chart-modal" style="display: none">
+        {% assign size_chart_page = pages['size-chart'] %}
+
+        <a href="#" class="modal__close">
+          {% include 'icon' with 'cross' %}
+        </a>
+
+        <h4 class="modal__title">{{ size_chart_page.title }}</h4>
+
+        <div class="modal__body rte">
+          {{ size_chart_page.content }}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+{% endunless %}

@@ -1,0 +1,20 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ page.title }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<div class="container">
+  <div class="inner">
+    {% assign linklist_handle = page.content | strip_html %}
+    {% include 'list_collections', list_collections_linklist: linklists[linklist_handle], grid_items_per_row: 4, allow_all_collections: false %}
+  </div>
+</div>

@@ -1,0 +1,122 @@
+{% assign instagram_access_token = section.settings.access_token %}
+{% assign number_of_images = section.settings.number_of_rows | times: section.settings.image_per_row %}
+
+<section class="index-module index-module__section-{{ section.id }} index-module__instagram"
+         data-limit-images="{{ number_of_images }}"
+         data-images-per-row="{{ section.settings.image_per_row }}"
+         {% if instagram_access_token != blank %}data-access-token="{{ instagram_access_token }}{% endif %}">
+  <div class="inner">
+    {% if section.settings.title != blank %}
+      <h2 class="index-module__title">{% include 'icon' with 'instagram' %}{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div id="instafeed" class="instafeed grid grid--small grid--gallery grid--gallery-small">
+      {% if instagram_access_token == blank %}
+        {% for i in (1..number_of_images) %}
+          <div class="grid__cell 1/2 1/3--handheld-and-up 1/6--lap-and-up">
+            <div class="instagram__image-wrapper">
+              <a href="#" target="_blank">
+                <div class="instagram__overlay">
+                  <p class="instagram__caption"></p>
+                  <time class="instagram__date">{{ 'now' | date: '%b %d, %Y' }}</time>
+                </div>
+
+                {{ 'image' | placeholder_svg_tag: 'instagram__image' }}
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .index-module__section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Instagram",
+  "class": "shopify-section__instagram",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Instagram"
+    },
+    {
+      "type": "text",
+      "id": "access_token",
+      "label": "Access token",
+      "info": "[Find your access token](http://www.maestrooo.com/instagram)."
+    },
+    {
+      "type": "select",
+      "id": "image_per_row",
+      "label": "Images per row",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "6"
+    },
+    {
+      "type": "select",
+      "id": "number_of_rows",
+      "label": "Number of rows",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Social media",
+      "name": "Instagram"
+    }
+  ]
+}
+{% endschema %}

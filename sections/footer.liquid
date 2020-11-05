@@ -1,0 +1,212 @@
+<footer id="footer" class="footer {% if remove_footer_top_margin %}footer--no-margin{% endif %}" role="contentinfo">
+  <div class="container">
+    {% capture footer_row_1 %}
+      {% for block in section.blocks limit: 3 %}
+        {% case block.type %}
+          {% when 'logo' %}
+            {% include 'footer_logo' %}
+
+          {% when 'contact' %}
+            {% include 'footer_contact' %}
+
+          {% when 'menu' %}
+            {% include 'footer_menu' %}
+
+          {% when 'text' %}
+            {% include 'footer_custom_content' %}
+
+          {% when 'newsletter' %}
+            {% include 'footer_newsletter' %}
+
+          {% when 'social' %}
+            {% include 'footer_social' %}
+        {% endcase %}
+      {% endfor %}
+    {% endcapture %}
+
+    {% capture footer_row_2 %}
+      {% for block in section.blocks offset: 3 %}
+        {% case block.type %}
+          {% when 'logo' %}
+            {% include 'footer_logo' %}
+
+          {% when 'contact' %}
+            {% include 'footer_contact' %}
+
+          {% when 'menu' %}
+            {% include 'footer_menu' %}
+
+          {% when 'text' %}
+            {% include 'footer_custom_content' %}
+
+          {% when 'newsletter' %}
+            {% include 'footer_newsletter' %}
+
+          {% when 'social' %}
+            {% include 'footer_social' %}
+        {% endcase %}
+      {% endfor %}
+    {% endcapture %}
+
+    {% if footer_row_1 != blank %}
+      <div class="footer__row">
+        {{ footer_row_1 }}
+      </div>
+    {% endif %}
+
+    {% if footer_row_2 != blank %}
+      <div class="footer__row">
+        {{ footer_row_2 }}
+      </div>
+    {% endif %}
+
+    <div class="footer__misc">
+      <p class="footer__copyright">
+        <a href="/">{{ shop.name }}</a> / {{ powered_by_link }}
+      </p>
+
+      {% if section.settings.show_payment_methods %}
+        <ul class="payment-methods list--unstyled">
+          {% assign payment_types = shop.enabled_payment_types %}
+
+          {% if payment_types contains 'visa' %}<li class="payment-methods__item">{% include 'icon' with 'visa', title: 'Visa' %}</li>{% endif %}
+          {% if payment_types contains 'master' %}<li class="payment-methods__item">{% include 'icon' with 'mastercard', title: 'MasterCard' %}</li>{% endif %}
+          {% if payment_types contains 'american_express' %}<li class="payment-methods__item">{% include 'icon' with 'amex', title: 'AMEX' %}</li>{% endif %}
+          {% if payment_types contains 'jcb' %}<li class="payment-methods__item">{% include 'icon' with 'jcb', title: 'JCB' %}</li>{% endif %}
+          {% if payment_types contains 'discover' %}<li class="payment-methods__item">{% include 'icon' with 'discover', title: 'Discover' %}</li>{% endif %}
+          {% if payment_types contains 'diners_club' %}<li class="payment-methods__item">{% include 'icon' with 'diners-club', title: 'Diners' %}</li>{% endif %}
+          {% if payment_types contains 'maestro' %}<li class="payment-methods__item">{% include 'icon' with 'maestro', title: 'Maestro' %}</li>{% endif %}
+          {% if payment_types contains 'stripe' %}<li class="payment-methods__item">{% include 'icon' with 'stripe', title: 'Stripe' %}</li>{% endif %}
+          {% if payment_types contains 'amazon_payments' %}<li class="payment-methods__item">{% include 'icon' with 'amazon-payments', title: 'Amazon Payments' %}</li>{% endif %}
+          {% if payment_types contains 'paypal' %}<li class="payment-methods__item">{% include 'icon' with 'paypal', title: 'PayPal' %}</li>{% endif %}
+          {% if payment_types contains 'google' %}<li class="payment-methods__item">{% include 'icon' with 'google-wallet', title: 'Google Wallet' %}</li>{% endif %}
+          {% if payment_types contains 'bitcoin' %}<li class="payment-methods__item">{% include 'icon' with 'bitcoin', title: 'BitCoin' %}</li>{% endif %}
+          {% if payment_types contains 'apple_pay' %}<li class="payment-methods__item">{% include 'icon' with 'apple-pay', title: 'ApplePay' %}</li>{% endif %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_payment_methods",
+      "label": "Show payment methods",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo",
+          "info": "200 x 60px .png recommended"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact info",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "contact_phone",
+          "label": "Phone number"
+        },
+        {
+          "type": "text",
+          "id": "contact_email",
+          "label": "Email"
+        }
+      ]
+    },
+    {
+       "type": "menu",
+       "name": "Menu",
+       "settings": [
+         {
+           "type": "link_list",
+           "id": "menu_linklist",
+           "label": "Menu"
+         }
+       ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "custom_content_heading",
+          "label": "Heading",
+          "default": "About"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_content_text",
+          "label": "Text",
+          "default": "Enter some text about your shop"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)."
+        },
+        {
+          "type": "paragraph",
+          "content": "You can sync your customers with a newsletter service by installing their app."
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Make sure to have properly configured your social networks in the theme settings"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "text",
+        "settings": {
+          "custom_content_heading": "About my shop",
+          "custom_content_text": "Some info about your shop!"
+        }
+      },
+      {
+        "type": "menu",
+        "settings": {
+          "menu_linklist": "footer"
+        }
+      },
+      {
+        "type": "newsletter",
+        "settings": {}
+      }
+    ]
+  }
+}
+{% endschema %}

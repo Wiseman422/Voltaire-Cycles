@@ -1,0 +1,7 @@
+{% layout none %}
+
+{% assign number_of_results = settings.collection_number_of_rows | times: settings.collection_desktop_grid_items_per_row %}
+
+{% paginate search.results by number_of_results %}
+  {% include 'list_products', grid_items_per_row: settings.collection_desktop_grid_items_per_row %}
+{% endpaginate %}

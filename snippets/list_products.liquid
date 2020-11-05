@@ -1,0 +1,69 @@
+{% comment %}
+This snippet can be used in two different contexts: collection or search results. The major difference is that search results
+may return products, but also articles or pages (depending on the settings).
+As a consequence, we have some specific code that may be used to display an article or page.
+{% endcomment %}
+
+{% if template contains 'search' %}
+  {% assign source = search.results %}
+  {% assign is_search = true %}
+{% else %}
+  {% assign source = collection.products %}
+  {% assign is_search = false %}
+{% endif %}
+
+{% case grid_items_per_row %}
+  {% when '2' %}
+    {% assign image_size = '800x' %}
+
+  {% when '3' %}
+    {% assign image_size = '650x' %}
+
+  {% when 4 %}
+    {% assign image_size = '450x' %}
+
+  {% when '5' %}
+    {% assign image_size = '350x' %}
+
+  {% when '6' %}
+    {% assign image_size = '250x' %}
+{% endcase %}
+
+{% capture list_of_products %}
+  {% for item in source %}
+    {% if is_search %}
+      {% if item.object_type == 'product' %}
+        {% include 'product_item', product: item %}
+		{% include 'bold-product' with item, hide_action: 'skip' %}
+      {% elsif item.object_type == 'article' %}
+        {% include 'article_item', article: item %}
+      {% elsif item.object_type == 'page' %}
+        {% include 'page_item', page: item %}
+      {% endif %}
+    {% else %}
+      {% include 'product_item', product: item %}
+      {% include 'bold-product' with item, hide_action: 'skip' %}
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% if template == 'collection.infinite-scroll' or template == 'search.infinite-scroll' %}
+  {{ list_of_products }}
+{% else %}
+  <div class="collection__list collection__list--infinite-scroll grid grid--gallery grid--gallery-large grid--middle">
+    {{ list_of_products }}
+  </div>
+
+  {% if paginate.pages > 1 %}
+    {% if section.settings.pagination_mode == 'infinite_scrolling' %}
+      <div class="collection__loader" data-next-page="{{ paginate.next.url }}&view=infinite-scroll">
+        <div class="spinner">
+          <div class="spinner__bounce1"></div>
+          <div class="spinner__bounce2"></div>
+        </div>
+      </div>
+    {% else %}
+      {% include 'pagination' %}
+    {% endif %}
+  {% endif %}
+{% endif %}

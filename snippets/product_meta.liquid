@@ -1,0 +1,72 @@
+{% assign selected_variant = product.selected_or_first_available_variant %}
+
+{% if selected_variant.compare_at_price > selected_variant.price %}
+  {% assign product_on_sale = true %}
+{% else %}
+  {% assign product_on_sale = false %}
+{% endif %}
+
+<div class="product__meta {% if for_mobile %}product__meta--mobile{% else %}product__meta--desktop{% endif %}">
+  {% unless for_mobile %}
+    <div itemprop="offers" itemscope itemtype="//schema.org/Offer">
+      <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+      <meta itemprop="price" content="{{ product.price_min | divided_by: 100.0 }}">
+      {% if product.available %}
+        <link itemprop="availability" href="//schema.org/InStock">
+      {% else %}
+        <link itemprop="availability" href="//schema.org/OutOfStock">
+      {% endif %}
+    </div>
+  {% endunless %}
+  {% if show_vendor and product.vendor != blank %}
+    <h2 class="product__vendor" itemprop="brand">
+      <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
+    </h2>
+  {% endif %}
+  <h1 class="product__title" itemprop="name">{{ product.title }}</h1>
+
+  {% if section.settings.show_inventory and selected_variant.inventory_management == 'shopify' %}
+    <span class="product__inventory">{{ 'product.general.inventory_html' | t: count: selected_variant.inventory_quantity }}</span>
+  {% endif %}
+
+  {% if section.settings.reviews_enabled %}
+    <div class="product__reviews-badge">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}">{{ 'product.general.loading_reviews' | t }}</span>
+    </div>
+  {% endif %}
+
+  <div class="product__prices">
+    {% if product.available %}
+      {% if product_on_sale %}
+        <span class="product__price product__price--old" data-money-convertible>{{ selected_variant.compare_at_price | money }}</span>
+        <span class="product__price product__price--new" data-money-convertible><span class="money" data-product-id="{{ product.id }}">{{ selected_variant.price | money }}</span></span>
+
+        <span class="product__sale-percent">-{{ selected_variant.compare_at_price | minus: selected_variant.price | times: 100.0 | divided_by: selected_variant.compare_at_price | round }}%</span>
+      {% else %}
+        <span class="product__price" data-money-convertible><span class="money" data-product-id="{{ product.id }}">{{ selected_variant.price | money }}</span></span>
+      {% endif %}
+    {% endif %}
+  </div>
+{% include 'affirmproduct' %}
+  {% capture product_labels %}
+    {% unless product.available %}
+      <span class="label label--sold-out">{{ 'product.labels.sold_out' | t }}</span>
+    {% endunless %}
+
+    {% assign has_custom_label = false %}
+
+    {% for tag in product.tags %}
+      {% if tag contains '__label' %}
+        {% assign has_custom_label = true %}
+        <span class="label label--custom">{{ tag | split: '__label:' | last }}</span>
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endcapture %}
+
+  {% if product_labels != blank and context != 'quick-shop' %}
+    <div class="product__labels {% if has_custom_label %}product__labels--always{% endif %}">
+      {{ product_labels }}
+    </div>
+  {% endif %}
+</div>

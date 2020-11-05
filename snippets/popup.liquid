@@ -1,0 +1,46 @@
+{% if settings.marketing_popup_enabled %}
+  {% unless settings.marketing_popup_only_on_index and template != 'index' %}
+    {% unless settings.marketing_popup_only_visitors and customer %}
+      {% comment %}
+      We use a script tag to manually open the Fancybox element. The reason is that script tag is the only HTML tag
+      that never takes space visually
+      {% endcomment %}
+
+      <div class="modal marketing-popup" style="display: none; {% if settings.marketing_popup_image %}background-image: url({{ settings.marketing_popup_image | img_url: '800x' }});{% endif %}">
+        <a href="#" class="modal__close">
+          {% include 'icon' with 'cross' %}
+        </a>
+
+        <h4 class="modal__title">{{ settings.marketing_popup_title }}</h4>
+
+        <div class="modal__body rte">
+          {{ settings.marketing_popup_content }}
+        </div>
+
+        {% if settings.marketing_popup_show_newsletter %}
+          {% assign form_posted_successfully = false %}
+
+          {%- capture popup_newsletter_form -%}
+            {%- form 'customer', action: '/contact#marketing-popup', class: 'modal__form' -%}
+              {% if form.posted_successfully? %}
+                {% assign form_posted_successfully = true %}
+              {% endif %}
+
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input type="email" name="contact[email]" aria-label="{{ 'layout.popup.email_placeholder' | t }}" placeholder="{{ 'layout.popup.email_placeholder' | t }}">
+              <input type="submit" class="button button--primary" value="{{ 'layout.popup.submit' | t }}">
+            {%- endform -%}
+          {%- endcapture -%}
+
+          <section class="modal__newsletter">
+            {% if form_posted_successfully %}
+              <p class="modal__newsletter-success">{{ 'layout.popup.newsletter_success' | t }}</p>
+            {% else %}
+              {{ popup_newsletter_form }}
+            {% endif %}
+          </section>
+        {% endif %}
+      </div>
+    {% endunless %}
+  {% endunless %}
+{% endif %}

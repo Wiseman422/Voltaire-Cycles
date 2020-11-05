@@ -1,0 +1,15 @@
+<div class="mega-search" style="display: none">
+  {% include 'icon' with 'cross' %}
+
+  <form action="/search" method="get" class="mega-search__form" role="search">
+    <input type="hidden" name="type" value="{{ settings.search_mode }}">
+    <input type="search" class="mega-search__input" name="q" aria-label="{{ 'search.autocomplete.placeholder' | t }}" placeholder="{{ 'search.autocomplete.placeholder' | t }}" value="{{ search.terms | escape }}" autofocus="autofocus" autocorrect="off" autocomplete="off">
+
+    <div class="mega-search__spinner spinner" style="display: none">
+      <div class="spinner__bounce1"></div>
+      <div class="spinner__bounce2"></div>
+    </div>
+  </form>
+
+  <ul class="mega-search__suggestions list--unstyled"></ul>
+</div>

@@ -1,0 +1,398 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_nav": "Aller à la navigation",
+      "skip_to_content": "Aller au contenu principal",
+      "skip_to_footer": "Aller au footer"
+    },
+    "meta": {
+      "tags": "Mots clés \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "forms": {
+      "errors": "Oops..."
+    },
+    "pagination": {
+      "next": "Suivant",
+      "prev": "Précédent"
+    },
+    "breadcrumb": {
+      "home": "Accueil",
+      "account": "Compte"
+    },
+    "social": {
+      "share": "Partager"
+    }
+  },
+  "layout": {
+    "top_bar": {
+      "contact": "Contact"
+    },
+    "header": {
+      "login": "Connexion",
+      "logout": "Déconnexion",
+      "register": "Inscription",
+      "account": "Mon compte",
+      "cart": "Panier",
+      "open_menu": "Ouvrir le menu"
+    },
+    "footer": {
+      "social_title": "Nous suivre",
+      "contact_title": "Nous contacter",
+      "contact_phone": "Appelez nous au {{phone_number}}",
+      "newsletter_title": "Newsletter",
+      "newsletter_placeholder": "Votre email",
+      "newsletter_submit": "OK",
+      "newsletter_success": "Merci !"
+    },
+    "home": {
+      "newsletter_placeholder": "Votre email",
+      "newsletter_submit": "Valider",
+      "newsletter_success": "Merci ! Nous vous tiendrons au courant de nos nouveautés !"
+    },
+    "popup": {
+      "email_placeholder": "Email",
+      "newsletter_success": "Merci ! Nous vous tiendrons au courant de nos nouveautés !",
+      "submit": "S'inscrire"
+    }
+  },
+  "home_page": {
+    "onboarding": {
+      "brand_title": "Votre marque",
+      "product_title": "Votre produit",
+      "collection_title": "Votre collection",
+      "article_name": "Votre article",
+      "blog_author": "Auteur",
+      "blog_excerpt": "Votre boutique n'a pas publié d'articles pour le moment. Un blog peut être utilisé pour parler de vos nouveaux produits, dévoiler des astuces ou parler de l'actualité de votre boutique."
+    }
+  },
+  "customer": {
+    "login": {
+      "title": "Connexion",
+      "email": "Email",
+      "password": "Mot de passe",
+      "forgot_password": "Oublié ?",
+      "submit": "Connexion",
+      "register_link": "Vous n'avez pas de compte ?"
+    },
+    "register": {
+      "title": "Inscription",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "email": "Email",
+      "password": "Mot de passee",
+      "submit": "Inscription",
+      "login_link": "Vous avez déjà un compte ?"
+    },
+    "reset_password": {
+      "title": "Réinitialisation du mot de passe",
+      "email": "Email",
+      "password": "Mot de passe",
+      "password_confirmation": "Confirmation mot de passe",
+      "submit": "Réinitialiser"
+    },
+    "recover": {
+      "title": "Récupération du mot de passe",
+      "sent": "Email envoyé",
+      "email": "Email",
+      "submit": "Valider"
+    },
+    "activate_account": {
+      "title": "Activation du compte",
+      "password": "Mot de passe",
+      "password_confirmation": "Confirmation mot de passe",
+      "submit": "Activer",
+      "cancel": "Refuser"
+    },
+    "account": {
+      "title": "Votre compte",
+      "logout": "Déconnexion"
+    },
+    "addresses": {
+      "title": "Vos adresses",
+      "empty": "Vous n'avez aucune adresse sauvegardée.",
+      "create": "Créer une adresse",
+      "next": "Adresses suivantes",
+      "previous": "Adresses précédentes",
+      "create_title": "Création d'une adresse",
+      "edit_title": "Modifier adresse",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "company": "Entreprise",
+      "address1": "Adresse 1",
+      "address2": "Adresse 2",
+      "city": "Ville",
+      "country": "Pays",
+      "province": "Région",
+      "zip": "Code postal",
+      "phone": "Téléphone",
+      "set_default": "Définir comme adresse par défaut ?",
+      "create_submit": "Créer",
+      "update_submit": "Editer",
+      "cancel": "Annuler",
+      "addresses_count": {
+        "zero": "{{ count }} adresse",
+        "one": "{{ count }} adresse",
+        "other": "{{ count }} adresses"
+      }
+    },
+    "address": {
+      "delete": "Supprimer",
+      "edit": "Editer",
+      "default": "Adresse par défaut",
+      "billing": "Adresse de facturation",
+      "shipping": "Adresse de livraison",
+      "empty": "Vous n'avez aucune adresse sauvegardée. En créer une maintenant",
+      "see_all": "Voir toutes les adresses"
+    },
+    "orders": {
+      "none": "Vous n'avez passé aucune commande",
+      "order_number": "Commande",
+      "date": "Date",
+      "payment_status": "Statut du payment",
+      "fulfillment_status": "Statut du traitement de la commande",
+      "total": "Total",
+      "next": "Commandes plus récentes",
+      "previous": "Commandes plus anciennes"
+    },
+    "order": {
+      "title": "Commande {{order_number}}",
+      "cancelled": "Commande annulée le {{ date }}",
+      "date": "Commande effectuée le {{ date }}",
+      "product": "Produit",
+      "sku": "SKU",
+      "unit_price": "Prix unitaire",
+      "quantity": "Quantité",
+      "line_price": "Prix",
+      "subtotal": "Sous-total",
+      "discount": "Réduction",
+      "shipping": "Livraison",
+      "tax": "Taxe",
+      "total": "Total"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "Toutes les collections"
+    }
+  },
+  "collection": {
+    "general": {
+      "empty": "Cette collection ne contient aucun produit.",
+      "empty_with_tags": "Aucun produit ne correspond à vos filtres. Veuillez simplifier votre recherche.",
+      "back_home": "Retour à l'accueil",
+      "back_collection": "Retour à la collection",
+      "products_count": {
+        "one": "{{ count }} produit",
+        "other": "{{ count }} produits"
+      }
+    },
+    "product": {
+      "from_price_html": "{{ price }}"
+    },
+    "filter": {
+      "by_tag": "Filtrer par tag"
+    },
+    "sorting": {
+      "manual": "Mis en avant",
+      "best_selling": "Popularité",
+      "az": "Alphabétique, A-Z",
+      "za": "Alphabétique, Z-A",
+      "price_ascending": "Prix, par ordre croissant",
+      "price_descending": "Prix, par ordre décroissant",
+      "date_descending": "Plus récent au plus ancien",
+      "date_ascending": "Plus récent au plus ancien"
+    },
+    "quick_shop": {
+      "open": "Coup d'oeil",
+      "see_more": "Voir les détails"
+    }
+  },
+  "product": {
+    "general": {
+      "title": "Détails du produit",
+      "inventory_html": "<span class=\"product__inventory-count\">{{count}}<\/span> en stock",
+      "loading_reviews": "Chargement des critiques...",
+      "reviews": "Critiques",
+      "size_chart": "Voir les tailles",
+      "description": "Description",
+      "related_products": "Produits similaires",
+      "sale_price": "Prix remisé",
+      "regular_price": "Prix normal"
+    },
+    "labels": {
+      "unavailable": "Indisponible",
+      "sold_out": "Epuisé",
+      "on_sale": "En solde"
+    },
+    "form": {
+      "quantity": "Quantité",
+      "add_to_cart": "Ajouter au panier",
+      "adding_to_cart": "En cours d'ajout...",
+      "sold_out": "Epuisé",
+      "unavailable": "Indisponible",
+      "added_status": "Produit ajouté !",
+      "continue_to_shop": "Continuer",
+      "or": "ou",
+      "go_to_cart": "Aller au panier"
+    },
+    "navigation": {
+      "next_product": "Produit suivant",
+      "previous_product": "Produit précédent"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Votre panier",
+      "empty": "Votre panier est vide.",
+      "back": "Revenir à l'accueil",
+      "total": "Total",
+      "total_discount": "Economisés",
+      "estimated_taxes": "+ frais de port estimé :",
+      "checkout": "Payer",
+      "checkout_with": "Payer également avec",
+      "note": "Instructions (optionnel)",
+      "accept_terms": "J'accepte les conditions d'utilisation",
+      "read_terms": "(les lire)",
+      "need_accept_terms": "Vous devez accepter les conditions d'utilisation",
+      "currency_notice": "Les commandes sont traitées dans la devise de la boutique, qui est {{ shop_currency }}. Le contenu de votre panier peut être affiché dans une autre devise, au taux le plus récent."
+    },
+    "items": {
+      "product": "Produit",
+      "unit_price": "Prix unitaire",
+      "original_unit_price": "Prix unitaire d'origine",
+      "quantity": "Quantité",
+      "line_price": "Sous-total",
+      "original_line_price": "Prix d'origine",
+      "remove": "Supprimer"
+    },
+    "shipping_estimator": {
+      "title": "Estimer les frais de port",
+      "country": "Pays",
+      "province": "Région\/Province",
+      "zip": "Code postal",
+      "submit": "Estimer",
+      "submitting": "Estimation...",
+      "error": "Il y a des erreurs :",
+      "rates": "Frais de port disponibles :",
+      "no_rates": "Nous ne livrons pas vers cette destination"
+    }
+  },
+  "blog": {
+    "general": {
+      "rss": "Flux RSS",
+      "read_more": "Voir plus",
+      "articles_count": {
+        "zero": "Aucun article",
+        "one": "{{ count }} article",
+        "other": "{{ count }} articles"
+      }
+    },
+    "articles": {
+      "previous": "Articles plus anciens",
+      "next": "Articles plus récents"
+    },
+    "article": {
+      "tags": "Tags",
+      "minutes_to_read": {
+        "one": "{{ count }} minute de lecture",
+        "other": "{{ count }} minutes de lecture"
+      }
+    },
+    "comments": {
+      "title": "Commentaires",
+      "write": "Ecrire un commentaire",
+      "success": "Votre commentaire a été publié",
+      "success_moderated": "Votre commentaire est en attente de validation",
+      "name": "Nom",
+      "email": "Email",
+      "comment": "Commentaire",
+      "approval": "Les commentaires sont modérés",
+      "submit": "Envoyer",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "comments_count": {
+        "one": "{{ count }} commentaire",
+        "other": "{{ count }} commentaires"
+      }
+    }
+  },
+  "search": {
+    "general": {
+      "title": "Chercher",
+      "search_for": "Pour \"{{ terms }}\"",
+      "empty": "Votre recherche n'a retourné aucun résultat.",
+      "input_placeholder": "Chercher...",
+      "back": "Retour à l'accueil",
+      "article_type": "Article",
+      "page_type": "Page",
+      "results_count": {
+        "zero": "Aucun résultat",
+        "one": "{{ count }} résultat",
+        "other": "{{ count }} résultats"
+      }
+    },
+    "autocomplete": {
+      "placeholder": "Chercher...",
+      "starting_at": "A partir de",
+      "article_type": "Article",
+      "page_type": "Page",
+      "see_all": "Voir tous les résultats"
+    }
+  },
+  "contact": {
+    "form": {
+      "successfully_sent": "Merci",
+      "name": "Votre nom",
+      "email": "Votre email",
+      "message": "Votre message",
+      "submit": "Envoyer"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Nous avons une bonne nouvelle pour vous !",
+      "issued_text": "Voici votre carte cadeau",
+      "left_balance": "restant",
+      "disabled": "Cette carte cadeau est désactivée.",
+      "expires": "Expire le {{ expiry }}.",
+      "redeem": "Utilisez ce code pendant le paiement",
+      "shop_link": "Découvrir la boutique",
+      "print": "Imprimer"
+    },
+    "alt": {
+      "illustration": "Illustration de la carte cadeau",
+      "add_to_apple_wallet": "Ajouter à Apple Wallet"
+    }
+  },
+  "404": {
+    "general": {
+      "title": "Page non trouvée",
+      "empty": "La page que vous recherchez n'existe pas.",
+      "back": "Retour à l'accueil"
+    }
+  },
+  "password": {
+    "general": {
+      "our_store": "Notre boutique",
+      "opening_soon": "Ouvre Bientôt !",
+      "admin_link_html": "Vous êtes le gérant ? <a href=\"\/admin\" class=\"link--primary\">Se connecter<\/a>",
+      "powered_by": "Cette boutique sera propulsée par"
+    },
+    "newsletter": {
+      "email": "Email",
+      "submit": "Envoyer",
+      "thank_you": "Merci de votre inscription !"
+    },
+    "form": {
+      "error": "Mauvais mot de passe",
+      "enter_password": "Entrez votre mot de passe",
+      "submit": "Connexion"
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%d %B %Y",
+    "month_day_year_time": "%d %B %Y à %I:%M",
+    "month_day_year_time_short": "%d %b %Y, %I:%M"
+  }
+}

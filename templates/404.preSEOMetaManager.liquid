@@ -1,0 +1,24 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ '404.general.title' | t }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<div class="error-404 container">
+  <div class="inner">
+    <span class="error-404__icon">404</span>
+
+    <div class="error-404__empty">
+      <p>{{ '404.general.empty' | t }}</p>
+      <a href="{{ shop.url }}" class="button button--primary">{{ '404.general.back' | t }}</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<section class="footer__module" {{ block.shopify_attributes }}>
+  <h3 class="footer__title">{{ 'layout.footer.newsletter_title' | t }}</h3>
+  {% capture footer_form_action %}/contact#shopify-section-{{ section.id }}{% endcapture %}
+
+  {%- form 'customer', action: footer_form_action, class: 'footer__form' -%}
+    {% unless form.posted_successfully? %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input class="footer__input" type="email" name="contact[email]" aria-label="{{ 'layout.footer.newsletter_placeholder' | t }}" placeholder="{{ 'layout.footer.newsletter_placeholder' | t }}">
+      <input class="footer__submit" type="submit" value="{{ 'layout.footer.newsletter_submit' | t }}">
+    {% else %}
+      <p>{{ 'layout.footer.newsletter_success' | t }}</p>
+    {% endunless %}
+  {%- endform -%}
+</section>

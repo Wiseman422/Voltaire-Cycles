@@ -1,0 +1,208 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <p class="header__push-meta">{{ 'customer.addresses.addresses_count' | t: count: customer.addresses_count }}</p>
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ 'customer.addresses.title' | t }}</h1>
+          <a href="#" data-action="open-new-address-modal" class="header__push-context link--primary">{{ 'customer.addresses.create' | t }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<div class="container">
+  <div class="inner">
+    {% if customer.addresses.size == 0 %}
+      <div class="addresses__empty">
+        <p>{{ 'customer.addresses.empty' | t }}</p>
+        <a data-action="open-new-address-modal" href="#" class="button button--primary">{{ 'customer.addresses.create' | t }}</a>
+      </div>
+    {% else %}
+      <div class="account__addresses grid grid--gallery">
+        {% paginate customer.addresses by 6 %}
+          {% for address in customer.addresses %}
+            <div class="grid__cell 1/2--handheld 1/3--lap-and-up">
+              {% include 'customer_address', address: address %}
+            </div>
+          {% endfor %}
+
+          {% capture next_pagination_label %}{{ 'customer.addresses.next' | t }}{% endcapture %}
+          {% capture previous_pagination_label %}{{ 'customer.addresses.previous' | t }}{% endcapture %}
+
+          {% include 'pagination', next_pagination_label: next_pagination_label, previous_pagination_label: previous_pagination_label %}
+        {% endpaginate %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="addresses__new addresses__modal modal" style="display: none">
+  <h4 class="modal__title">{{ 'customer.addresses.create_title' | t }}</h4>
+
+  <div class="modal__body">
+    {% form 'customer_address', customer.new_address %}
+      <div class="form__control">
+        <label class="form__label" for="address_first_name_{{form.id}}">{{ 'customer.addresses.first_name' | t }}</label>
+        <input type="text" id="address_first_name_{{form.id}}" name="address[first_name]" value="{{ form.first_name }}">
+      </div>
+
+      <div class="form__control">
+        <label class="form__label" for="address_last_name_{{form.id}}">{{ 'customer.addresses.last_name' | t }}</label>
+        <input type="text" id="address_last_name_{{form.id}}" name="address[last_name]" value="{{ form.last_name }}">
+      </div>
+
+      <div class="form__control">
+        <label class="form__label" for="address_company_{{form.id}}">{{ 'customer.addresses.company' | t }}</label>
+        <input type="text" id="address_company_{{form.id}}" name="address[company]" value="{{ form.company }}">
+      </div>
+
+      <div class="form__control">
+        <label class="form__label" for="address_address1_{{form.id}}">{{ 'customer.addresses.address1' | t }}</label>
+        <input type="text" id="address_address1_{{form.id}}" name="address[address1]" value="{{ form.address1 }}">
+      </div>
+
+      <div class="form__control">
+        <label class="form__label" for="address_address2_{{form.id}}">{{ 'customer.addresses.address2' | t }}</label>
+        <input type="text" id="address_address2_{{form.id}}" name="address[address2]" value="{{ form.address2 }}">
+      </div>
+
+      <div class="form__control">
+        <label class="form__label" for="address_city_{{form.id}}">{{ 'customer.addresses.city' | t }}</label>
+        <input type="text" id="address_city_{{form.id}}" name="address[city]" value="{{ form.city }}">
+      </div>
+
+      <div class="form__control">
+        <label class="form__label" for="address_country_new">{{ 'customer.addresses.country' | t }}</label>
+
+        <div class="form__select">
+          {% include 'icon' with 'arrow-bottom' %}
+          <select id="address_country_new" name="address[country]" data-default="{{form.country}}">{{ country_option_tags }}</select>
+        </div>
+      </div>
+
+      <div id="address-province-container-new" class="form__control address-province-container" style="display: none">
+        <label class="form__label" for="address_province_new">{{ 'customer.addresses.province' | t }}</label>
+
+        <div class="form__select">
+          {% include 'icon' with 'arrow-bottom' %}
+          <select id="address_province_new" class="address_form" name="address[province]" data-default="{{form.province}}"></select>
+        </div>
+      </div>
+
+      <div class="form__control">
+        <label class="form__label" for="address_zip_{{form.id}}">{{ 'customer.addresses.zip' | t }}</label>
+        <input type="text" id="address_zip_{{form.id}}" name="address[zip]" value="{{ form.zip }}">
+      </div>
+
+      <div class="form__control">
+        <label class="form__label" for="address_phone_{{form.id}}">{{ 'customer.addresses.phone' | t }}</label>
+        <input type="text" id="address_phone_{{form.id}}" name="address[phone]" value="{{ form.phone }}">
+      </div>
+
+      <div class="form__control">
+        <label class="form__label">
+          {{ form.set_as_default_checkbox }} {{ 'customer.addresses.set_default' | t }}
+        </label>
+      </div>
+
+      <div class="form__control">
+        <input class="button button--primary" type="submit" value="{{ 'customer.addresses.create_submit' | t }}" />
+        <a class="addresses__close link--primary" href="#">{{ 'customer.addresses.cancel' | t }}</a>
+      </div>
+    {% endform %}
+  </div>
+</div>
+
+{% for address in customer.addresses %}
+  <div class="addresses__edit addresses__modal modal" data-address="{{ address.id }}" style="display: none">
+    <h4 class="modal__title">{{ 'customer.addresses.edit_title' | t }}</h4>
+
+    <div class="modal__body">
+      {% form 'customer_address', address %}
+        <div class="form__control">
+          <label class="form__label" for="address_first_name_{{form.id}}">{{ 'customer.addresses.first_name' | t }}</label>
+          <input type="text" id="address_first_name_{{form.id}}" name="address[first_name]" value="{{ form.first_name }}">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="address_last_name_{{form.id}}">{{ 'customer.addresses.last_name' | t }}</label>
+          <input type="text" id="address_last_name_{{form.id}}" name="address[last_name]" value="{{ form.last_name }}">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="address_company_{{form.id}}">{{ 'customer.addresses.company' | t }}</label>
+          <input type="text" id="address_company_{{form.id}}" name="address[company]" value="{{ form.company }}">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="address_address1_{{form.id}}">{{ 'customer.addresses.address1' | t }}</label>
+          <input type="text" id="address_address1_{{form.id}}" name="address[address1]" value="{{ form.address1 }}">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="address_address2_{{form.id}}">{{ 'customer.addresses.address2' | t }}</label>
+          <input type="text" id="address_address2_{{form.id}}" name="address[address2]" value="{{ form.address2 }}">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="address_city_{{form.id}}">{{ 'customer.addresses.city' | t }}</label>
+          <input type="text" id="address_city_{{form.id}}" name="address[city]" value="{{ form.city }}">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="address_country_{{ form.id }}">{{ 'customer.addresses.country' | t }}</label>
+
+          <div class="form__select">
+            {% include 'icon' with 'arrow-bottom' %}
+            <select id="address_country_{{ form.id }}" name="address[country]" data-default="{{form.country}}">{{ country_option_tags }}</select>
+          </div>
+        </div>
+
+        <div id="address-province-container-{{ form.id }}" class="form__control address-province-container" style="display: none">
+          <label class="form__label" for="address_province_{{ form.id }}">{{ 'customer.addresses.province' | t }}</label>
+
+          <div class="form__select">
+            {% include 'icon' with 'arrow-bottom' %}
+            <select id="address_province_{{ form.id }}" class="address_form" name="address[province]" data-default="{{form.province}}"></select>
+          </div>
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="address_zip_{{form.id}}">{{ 'customer.addresses.zip' | t }}</label>
+          <input type="text" id="address_zip_{{form.id}}" name="address[zip]" value="{{ form.zip }}">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="address_phone_{{form.id}}">{{ 'customer.addresses.phone' | t }}</label>
+          <input type="text" id="address_phone_{{form.id}}" name="address[phone]" value="{{ form.phone }}">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label">
+            {{ form.set_as_default_checkbox }} {{ 'customer.addresses.set_default' | t }}
+          </label>
+        </div>
+
+        <div class="form__control">
+          <input class="button button--primary" type="submit" value="{{ 'customer.addresses.update_submit' | t }}" />
+          <a class="addresses__close link--primary" href="#">{{ 'customer.addresses.cancel' | t }}</a>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+{% endfor %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', {hideElement: 'address-province-container-new'});
+
+    {% for address in customer.addresses %}
+      new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {hideElement: 'address-province-container-{{address.id}}'});
+    {% endfor %}
+  });
+</script>

@@ -1,0 +1,262 @@
+<!doctype html>
+
+<!--[if IE 9 ]><html class="no-js csscalc no-flexbox ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="no-js"><!--<![endif]-->
+
+  <head>
+   <meta name="google-site-verification" content="2B2AoVN21TH8uSpEFwMCK7nP7tTUcRFtHBRO-w4rc24" />
+  {% include 'SEOManager' %}
+
+    <meta charset="utf-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+
+       
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {% comment %} We preconnect of two popular domains (Shopify CDN and Google Font) to speed up performance {% endcomment %}
+    <link rel="preconnect" href="//cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
+
+    {% if settings.favicon %}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {% endif %}
+
+    {% include 'social_meta_tags' %}
+    {% include 'google_fonts' %}
+
+    {% include 'treedify' %}{{ content_for_header }}
+
+    {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+    
+    {{ 'callback-request.scss.css' | asset_url | stylesheet_tag }}
+
+
+
+    {{ '//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js' | script_tag }}
+    
+    <script>
+      // This allows to expose several variables to the global scope, to be used in scripts
+      window.shop = {
+        template: {{ template | json }},
+        currentPage: {{ current_page }},
+        shopCurrency: {{ shop.currency | json }},
+        moneyFormat: {{ shop.money_format | json }},
+        moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
+        collectionSortBy: {{ collection.sort_by | default: collection.default_sort_by | json }}
+      };
+
+      window.languages = {
+        autocompleteStartingAt: {{ 'search.autocomplete.starting_at' | t | json }},
+        autocompletePageType: {{ 'search.autocomplete.page_type' | t | json }},
+        autocompleteSeeAll: {{ 'search.autocomplete.see_all' | t | json }},
+        recoverPassword: {{ 'customer.recover.title' | t | json }},
+        cartTerms: {{ 'cart.general.need_accept_terms' | t | json }},
+        cartEstimatedShipping: {{ 'cart.general.estimated_taxes' | t | json }},
+        shippingEstimatorSubmit: {{ 'cart.shipping_estimator.submit' | t | json }},
+        shippingEstimatorSubmitting: {{ 'cart.shipping_estimator.submitting' | t | json }},
+        shippingEstimatorNoRates: {{ 'cart.shipping_estimator.no_rates' | t | json }},
+        shippingEstimatorRates: {{ 'cart.shipping_estimator.rates' | t | json }},
+        shippingEstimatorError: {{ 'cart.shipping_estimator.error' | t | json }},
+        productAddedStatus: {{ 'product.form.added_status' | t | json }},
+        unavailableLabel: {{ 'product.labels.unavailable' | t | json }},
+        soldOutLabel: {{ 'product.labels.sold_out' | t | json }},
+        addToCartLabel: {{ 'product.form.add_to_cart' | t | json }},
+        addingToCartLabel: {{ 'product.form.adding_to_cart' | t | json }}
+      }
+    </script>
+	<meta name="google-site-verification" content="4BVdN8BgAYS8yP8nLsQMo2uwCzMy61H4qCggo1FrY4E" />
+	<meta name="msvalidate.01" content="F0CB483FD7178D34CA6DA6970CA09E59" />
+	<meta name="google-site-verification" content="eTBaQIFPzHuWeCCBmsKELcsbkb6O00Zcs5qauVDr5DI" />
+  
+	  {{ 'bold.css' | asset_url | stylesheet_tag }}
+	  {% include 'bold-product' with product, hide_action: 'header' %}   
+  
+	<meta name="google-site-verification" content="YDtBVUwN_1w_iZpOIjcLfODwOTdLKAOCD6DIdXBbiow" />
+
+
+
+	<!-- BeginConsistentCartAddon --><script>{% if customer %}Shopify.merge_cart_text = '{{ "consistent_cart_addon.merge_cart_text" | t }}' ;Shopify.customer_logged_in = true ;Shopify.customer_email = "{{ customer.email }}" ;Shopify.log_uuids = true;{% else %}Shopify.customer_logged_in = false ;Shopify.customer_email = "" ;Shopify.log_uuids = true;{% endif %}</script><!-- EndConsistentCartAddon -->
+	{% if product.metafields.inventory.ShappifyHidden == "true" %} <meta name="robots" content="noindex"> {% endif %}
+  {% include 'scapp-customerinfo' %} 
+   <!-- Affirm -->
+<script>
+_affirm_config = {
+   public_api_key:  "8Y4GK7S3COF1DQ5G",
+   script:          "https://cdn1.affirm.com/js/v2/affirm.js",
+};
+(function(l,g,m,e,a,f,b){var d,c=l[m]||{},h=document.createElement(f),n=document.getElementsByTagName(f)[0],k=function(a,b,c){return function(){a[b]._.push([c,arguments])}};c[e]=k(c,e,"set");d=c[e];c[a]={};c[a]._=[];d._=[];c[a][b]=k(c,a,b);a=0;for(b="set add save post open empty reset on off trigger ready setProduct".split(" ");a<b.length;a++)d[b[a]]=k(c,e,b[a]);a=0;for(b=["get","token","url","items"];a<b.length;a++)d[b[a]]=function(){};h.async=!0;h.src=g[f];n.parentNode.insertBefore(h,n);delete g[f];d(g);l[m]=c})(window,_affirm_config,"affirm","checkout","ui","script","ready");
+// Use your live public API Key and https://cdn1.affirm.com/js/v2/affirm.js script to point to Affirm production environment.
+</script>
+<!-- End Affirm -->
+
+  {% include 'bookthatapp-widgets' %}
+
+</head>
+
+
+  {% assign template_handle = template | replace: '.', ' ' | truncatewords: 1, '' | handle %}
+
+  <body itemscope itemtype="//schema.org/WebPage" class="focal focal--v5 template-{{ template_handle }} {% if page.template_suffix != blank %}template-{{ template_handle }}-{{page.template_suffix}}{% endif %}">
+    <script type="text/javascript">
+      var _learnq = _learnq || [];
+
+      _learnq.push(['account', 'aHnLQp']);
+
+      (function () {
+      var b = document.createElement('script'); b.type = 'text/javascript'; b.async = true;
+      b.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'a.klaviyo.com/media/js/analytics/analytics.js';
+      var a = document.getElementsByTagName('script')[0]; a.parentNode.insertBefore(b, a);
+      })();
+  	</script>
+
+    {% include 'svg_icons' %}
+
+    <div class="page__overlay"></div>
+
+    <div class="page__container">
+      {% comment %}
+      Implementation note: unfortunately, variables like push_header are not available within the scope of a section. As a consequence, we need to have some
+      code outside the section to emit the push header
+      {% endcomment %}
+
+      <header id="header" class="header {% if push_header != blank %}header--pushed{% endif %}" role="banner">
+        <script>
+          window.doHeaderInit = function(background) {
+            if (background) {
+              document.getElementById('header').setAttribute('style', 'background-image: url(' + background + ')');
+            } else {
+              document.getElementById('header').removeAttribute('style');
+            }
+          };
+        </script>
+
+        {% section 'header' %}
+
+        {% if push_header != blank %}
+          {{ push_header }}
+        {% endif %}
+      </header>
+
+      <main id="main" class="main" role="main">
+        {{ content_for_layout }}
+	<noscript class="endOfLayoutContentX" type="text/mark"></noscript>{% include 'treedify_script' %}
+        {% include "arp" %}
+        
+        <div id="awarp-recently-viewed-products" data-cart-products="{% for line in cart.items %}{{ line.product_id }},{% endfor %}"></div>
+        
+      </main>
+
+      {% section 'footer' %}
+    </div>
+
+    {% include 'popup' %}
+    {% include 'mega_search' %}
+
+    <script>
+      window.doPostSectionsInit = function() {
+        // In the new editor, there is no way to know which section is enabled or not. However, in Focal, if the slideshow is immediately followed by the
+        // featured images module, some special styles need to be applied. So, for now, we address that in JavaScript
+        (function() {
+          var elements = document.getElementsByClassName('shopify-section__featured-images');
+
+          for (var i = 0 ; i != elements.length ; ++i) {
+            var previousSibling = elements[i].previousSibling;
+
+            if (previousSibling && (' ' + previousSibling.className + ' ').indexOf(' shopify-section__slideshow ') > -1) {
+              previousSibling.className = previousSibling.className.concat(' shopify-section__slideshow--pull');
+            }
+          }
+        }());
+
+        // Similarily, we have some styles to apply on the header if and only if it is followed by the slideshow
+        {% if template == 'index' %}
+          (function() {
+            var elements = document.getElementsByClassName('slideshow--collapsed'),
+              hasFoundMatchingBlock = false;
+
+            for (var i = 0 ; i != elements.length ; ++i) {
+              var parentNode = elements[i].parentNode;
+
+              if (null === parentNode.previousSibling || parentNode.previousSibling.nodeType !== 8) {
+                continue; // It's not the very first node
+              }
+
+              // If we're here, we have a slideshow that is the first node, so we add a specific class to the header
+              hasFoundMatchingBlock = true;
+            }
+
+            var header = document.getElementById('header');
+
+            if (hasFoundMatchingBlock) {
+              if ((' ' + header.className + ' ').indexOf(' header--absolute ') === -1) {
+                header.className = header.className.concat(' header--absolute');
+              }
+            } else {
+              header.className = header.className.replace(' header--absolute', '');
+            }
+          }());
+        {% endif %}
+
+        // Finally, we need to add the header background if any
+        {% if template != 'index' %}
+          (function() {
+            var header = document.querySelector('#shopify-section-header .header__wrapper');
+
+            if (header.hasAttribute('data-background-image')) {
+              document.getElementById('header').setAttribute('style', 'background-image: url(' + header.getAttribute('data-background-image') + ')')
+            } else {
+              document.getElementById('header').removeAttribute('style');
+            }
+          }());
+        {% endif %}
+      };
+
+      window.doPostSectionsInit();
+    </script>
+
+    {{ 'modernizr.min.js' | asset_url | script_tag }}
+
+    {% if settings.currency_conversion_enabled %}
+      {{ '//cdn.shopify.com/s/javascripts/currencies.js' | script_tag }}
+    {% endif %}
+
+    {% if template contains 'customers' %}
+      {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+      {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+    {% endif %}
+
+    {% if template contains 'cart' %}
+      {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {% endif %}
+
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+    {{ '//cdn.polyfill.io/v2/polyfill.min.js?features=String.prototype.trim,Element.prototype.placeholder,Object.keys,Array.prototype.map,Array.prototype.forEach' | script_tag }}
+    {{ 'libs.js' | asset_url | script_tag }}
+    {{ 'script.js' | asset_url | script_tag }}
+    {% include 'gts' %}
+  
+{% include 'swymSnippet' %}
+{% include 'th-bundle-product' %}
+    <script>
+      $(document).ready(function(){
+        if ( $(window).width() < 500 ) {
+          $("#shopify-section-cart .cart .cart__table--desktop").remove();
+        }
+        else {
+          $("#shopify-section-cart .cart .cart__table--mobile").remove();
+        }
+      });
+    </script>
+ 
+   {% include 'revy-bundle-script' %}
+ 
+ 
+{% render 'spurit_dmr_theme_snippet' %}
+
+<!-- Back in Stock helper snippet -->
+{% render 'back-in-stock-helper' %}
+<!-- End Back in Stock helper snippet -->
+</body>
+</html>

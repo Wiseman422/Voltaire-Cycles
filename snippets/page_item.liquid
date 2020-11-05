@@ -1,0 +1,25 @@
+<div class="collection__item product-item grid__cell 1/2--thumb 1/2--handheld 1/{{ grid_items_per_row }}--lap-and-up">
+  <figure class="product-item__figure">
+    <a href="{{ page.url }}">
+      <div class="product-item__image-wrapper">
+        {% comment %}
+          We try to extract an image from the content, as Shopify does not support featured image for page yet
+        {% endcomment %}
+
+        {% assign src = '' %}
+        {% include 'img_src_from_text', content: page.content, img_size: image_size %}
+
+        {% if src == blank %}
+          {% assign src = page.featured_image | img_url: image_size, scale: 2 %}
+        {% endif %}
+
+        <img class="product-item__image" src="{{ src }}" alt="{{ page.title | escape }}">
+      </div>
+    </a>
+  </figure>
+
+  <div class="product-item__details">
+    <span class="product-item__type">{{ 'search.general.page_type' | t }}</span>
+    <a href="{{ page.url }}" class="product-item__title">{{ page.title }}</a>
+  </div>
+</div>

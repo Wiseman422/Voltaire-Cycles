@@ -1,0 +1,36 @@
+<header class="article__header">
+  <div class="article__meta">
+    <span itemprop="author" itemscope itemtype="//schema.org/Person">
+      <meta itemprop="givenName" content="{{ article.user.first_name }}">
+      <meta itemprop="familyName" content="{{ article.user.last_name }}">
+    </span>
+
+    {% if show_author %}
+      <span class="article__author">{{ article.author }}</span>
+      <span class="article__meta-separator">/</span>
+    {% endif %}
+
+    <time datetime="{{ article.published_at | date: '%Y-%m-%dT%T' }}" class="article__date" itemprop="dateCreated">{{ article.published_at | date: format: 'month_day_year' }}</time>
+
+    {% if template == 'article' and blog.comments_enabled? %}
+      <span class="article__meta-separator">/</span>
+
+      <a href="#comments" class="article__comments-count">
+        {% include 'icon' with 'comment' %}
+        {{ 'blog.comments.comments_count' | t: count: article.comments_count }}
+      </a>
+    {% endif %}
+  </div>
+
+  {% unless template == 'article' %}
+    <h2 class="article__title" itemprop="headline">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h2>
+
+    {% if article.image %}
+      <a href="{{ article.url }}" tabindex="-1">
+        <img class="article__image" src="{{ article.image | img_url: '720x' }}" alt="{{ article.title | escape }}">
+      </a>
+    {% endif %}
+  {% endunless %}
+</header>

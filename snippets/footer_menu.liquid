@@ -1,0 +1,15 @@
+{% assign linklist = linklists[block.settings.menu_linklist] %}
+
+{% unless linklist.empty?  %}
+  <section class="footer__module" {{ block.shopify_attributes }}>
+    <h3 class="footer__title">{{ linklist.title }}</h3>
+
+    <ul class="footer__linklist list--unstyled">
+      {% for link in linklist.links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endunless %}

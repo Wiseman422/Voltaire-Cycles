@@ -1,0 +1,40 @@
+ <div class="index-section--flush powr-popup" id="cdc19ab6_1551495030"></div>  {% include 'elspw_product' %}
+{% include 'bold-product' with product, hide_action: 'break' %}{% if bold_hidden_product %}{% break %}{%endif %}
+
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        {% if collection %}
+          <div class="header__push-meta">
+            {% if collection.previous_product %}
+              <a class="product__previous" href="{{ collection.previous_product }}">
+                {% include 'icon' with 'arrow-left' %}
+                {{ 'product.navigation.previous_product' | t }}
+              </a>
+
+              {% if collection.next_product %}
+                <span class="separator">|</span>
+              {% endif %}
+            {% endif %}
+
+            {% if collection.next_product %}
+              <a class="product__next" href="{{ collection.next_product }}">
+                {{ 'product.navigation.next_product' | t }}
+                {% include 'icon' with 'arrow-right' %}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="header__push-content">
+          <span class="header__push-title">{{ 'product.general.title' | t }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+{% section 'product' %} <div class="powr-social-media-icons" id="4d14c306_1523671698"></div>

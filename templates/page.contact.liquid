@@ -1,0 +1,73 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ page.title }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<section class="page">
+  {% capture contact_form %}
+    <div class="contact">
+      {% form 'contact', class: 'contact__form' %}
+        {% if form.posted_successfully? %}
+          <div class="alert alert--success">
+            <span class="alert__title">{{ 'contact.form.successfully_sent' | t }}</span>
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="alert alert--error">
+            <span class="alert__title">{{ 'general.forms.errors' | t }}</span>
+            {% include 'form_errors' %}
+          </div>
+        {% endif %}
+
+        <div class="form__control">
+          <label class="form__label" for="contact__name">{{ 'contact.form.name' | t }}</label>
+          <input type="text" id="contact__name" name="contact[name]">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="contact__email">{{ 'contact.form.email' | t }}</label>
+          <input type="email" id="contact__email" name="contact[email]">
+        </div>
+
+        <div class="form__control">
+          <label class="form__label" for="contact__body">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="5" cols="75" id="contact__body" name="contact[body]" required="required">{{ form.body }}</textarea>
+        </div>
+
+        <input type="submit" class="button button--primary" value="{{ 'contact.form.submit' | t }}">
+      {% endform %}
+    </div>
+  {% endcapture %}
+
+  {% if page.content == blank %}
+    <div class="container container--shrink">
+      {{ contact_form }}
+    </div>
+  {% else %}
+    <div class="container">
+      <div class="inner">
+        <div class="grid grid--large">
+          <div class="grid__cell 1/2--handheld-and-up 3/5--lap-and-up">
+            <div class="page__content rte">
+              {{ page.content }}
+            </div>
+          </div>
+
+          <div class="grid__cell 1/2--handheld-and-up 2/5--lap-and-up">
+            {{ contact_form }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>

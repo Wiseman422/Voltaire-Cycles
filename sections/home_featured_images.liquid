@@ -1,0 +1,199 @@
+{% for block in section.blocks %}
+  {% if section.settings.layout != '3' %}
+    {% assign image_size = '500x400' %}
+    {% assign svg_replacement = '<svg height="400"' %}
+  {% else %}
+    {% assign image_size = '500x253' %}
+    {% assign svg_replacement = '<svg height="253"' %}
+
+    {% if forloop.index == 1 %}
+      {% assign image_size = '500x524' %}
+      {% assign svg_replacement = '<svg height="524"' %}
+    {% endif %}
+  {% endif %}
+
+  {% capture marketing_module_item %}
+    {% if block.settings.image %}
+      {% if block.settings.link != blank %}
+        <a href="{{ block.settings.link }}" class="marketing-module__item marketing-module__link" {{ block.shopify_attributes }}>
+          <img class="marketing-module__image"
+               src="{{ block.settings.image | img_url: image_size }}"
+               srcset="{{ block.settings.image | img_url: image_size }} 1x, {{ block.settings.image | img_url: image_size, scale: 2 }} 2x"
+               alt="{{ block.settings.image.alt }}">
+        </a>
+      {% else %}
+        <img class="marketing-module__item marketing-module__image"
+             src="{{ block.settings.image | img_url: image_size }}"
+             srcset="{{ block.settings.image | img_url: image_size }} 1x, {{ block.settings.image | img_url: image_size, scale: 2 }} 2x"
+             alt="{{ block.settings.image.alt }}"
+             {{ block.shopify_attributes }}>
+      {% endif %}
+    {% else %}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg marketing-module__item marketing-module__image' | replace: '<svg', svg_replacement }}
+    {% endif %}
+  {% endcapture %}
+
+  {% if forloop.index == 1 %}
+    {% capture marketing_module_image_1 %}{{ marketing_module_item }}{% endcapture %}
+  {% elsif forloop.index == 2 %}
+    {% capture marketing_module_image_2 %}{{ marketing_module_item }}{% endcapture %}
+  {% else %}
+    {% capture marketing_module_image_3 %}{{ marketing_module_item }}{% endcapture %}
+  {% endif %}
+{% endfor %}
+
+<section class="marketing-module {% unless section.settings.show_on_mobile %}marketing-module--hide-mobile{% endunless %} container">
+  {% case section.settings.layout %}
+    {% when '1' %}
+
+      {% comment %} Three images in a row {% endcomment %}
+      <div class="marketing-module__wrapper marketing-module__wrapper--row-of-3">
+        <div class="marketing-module__column">
+          {{ marketing_module_image_1 }}
+        </div>
+
+        <div class="marketing-module__column">
+          {{ marketing_module_image_2 }}
+        </div>
+
+        <div class="marketing-module__column">
+          {{ marketing_module_image_3 }}
+        </div>
+      </div>
+
+    {% when '2' %}
+
+      {% comment %} Two images in a row {% endcomment %}
+      <div class="marketing-module__wrapper marketing-module__wrapper--row-of-2">
+        <div class="marketing-module__column">
+          {{ marketing_module_image_1 }}
+        </div>
+
+        <div class="marketing-module__column">
+          {{ marketing_module_image_2 }}
+        </div>
+      </div>
+
+    {% when '3' %}
+
+    {% comment %} Two images on the right, one on the left {% endcomment %}
+      <div class="marketing-module__wrapper marketing-module__wrapper--collage">
+        <div class="marketing-module__column">
+          {{ marketing_module_image_1 }}
+        </div>
+
+        <div class="marketing-module__column">
+          {{ marketing_module_image_2 }}
+          {{ marketing_module_image_3 }}
+        </div>
+      </div>
+  {% endcase %}
+</section>
+
+{% schema %}
+{
+  "name": "Featured images",
+  "class": "shopify-section__featured-images",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on mobile",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "1",
+          "label": "Row of 3"
+        },
+        {
+          "value": "2",
+          "label": "Row of 2"
+        },
+        {
+          "value": "3",
+          "label": "Collage of 3"
+        }
+      ],
+      "default": "1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "[Learn more about recommended image sizes](http://support.maestrooo.com/article/103-home-page-optimal-image-sizes-for-featured-images-section)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "Row of 3",
+      "settings": {
+        "layout": "1"
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "category": "Image",
+      "name": "Row of 2",
+      "settings": {
+        "layout": "2"
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "category": "Image",
+      "name": "Collage",
+      "settings": {
+        "layout": "3"
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

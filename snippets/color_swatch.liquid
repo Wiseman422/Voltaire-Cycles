@@ -1,0 +1,51 @@
+{% comment %}
+Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
+{% endcomment %}
+
+{% assign file_extension = 'png' %}
+
+{% assign found_color_option = false %}
+{% assign color_option_index = 0 %}
+{% assign color_option_name = '' %}
+
+{% for option in product.options %}
+  {% assign downcased_option = option | downcase %}
+
+  {% if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'couleur' %}
+    {% assign found_color_option = true %}
+    {% assign color_option_name = option %}
+    {% assign color_option_index = forloop.index0 %}
+
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if found_color_option %}
+  <div class="form__control selector-wrapper swatch" data-option-index="{{ color_option_index }}">
+    <label class="form__label" for="color">{{ color_option_name }}</label>
+    {% assign values = '' %}
+
+    <div class="swatch__colors">
+      {% for variant in product.variants %}
+        {% assign value = variant.options[color_option_index] %}
+
+        {% unless values contains value %}
+          {% assign values = values | join: ',' %}
+          {% assign values = values | append: ',' | append: value %}
+          {% assign values = values | split: ',' %}
+
+          <div title="{{ value }}" data-value="{{ value | escape }}" class="swatch__item {% if product.selected_or_first_available_variant.id == variant.id %}swatch__item--active{% endif %}">
+            <input class="swatch__input" id="swatch-{{ color_option_index }}-{{ value | handle }}" type="radio" name="option-{{ color_option_index }}" value="{{ value | escape }}" {% if product.selected_or_first_available_variant.id == variant.id %}checked{% endif %} {% unless variant.available %}disabled{% endunless %}>
+            <label class="swatch__label" for="swatch-{{ color_option_index }}-{{ value | handle }}" style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | append: '.' | append: file_extension | asset_url }})"></label>
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
+    .product__variants[data-product="{{ product.id }}"] .selector-wrapper:nth-of-type({{ color_option_index | plus: 1 }}) {
+      display: none;
+    }
+  </style>
+{% endif %}

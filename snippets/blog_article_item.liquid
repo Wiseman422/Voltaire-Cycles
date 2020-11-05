@@ -1,0 +1,17 @@
+<div class="grid__cell 1/3--handheld-and-up">
+  <article class="blog__article article" itemscope itemtype="//schema.org/BlogPosting">
+    {% include 'article_header', article: article %}
+
+    <div class="article__excerpt rte" itemprop="description">
+      {% if article.excerpt != blank %}
+        {{ article.excerpt | strip_html }}
+      {% else %}
+        {{ article.content | strip_html | truncatewords: 50 }}
+      {% endif %}
+    </div>
+
+    <div class="button-wrapper">
+      <a href="{{ article.url }}" class="button button--primary">{{ 'blog.general.read_more' | t }}</a>
+    </div>
+  </article>
+</div>

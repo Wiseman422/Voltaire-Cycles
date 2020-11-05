@@ -1,0 +1,56 @@
+<div class="search collection container">
+  <div class="inner">
+    {% if search.performed == false or search.results_count == 0 %}
+      <div class="search__empty">
+        {% if search.performed %}
+          <p>{{ 'search.general.empty' | t }}</p>
+        {% endif %}
+
+        <form action="/search" method="GET" role="search" class="search__form">
+          <input type="hidden" name="type" value="{{ settings.search_mode }}">
+          <input type="search" name="q" class="search__input" autofocus="autofocus" autocorrect="off" autocomplete="off" placeholder="{{ 'search.general.input_placeholder' | t }}" value="{{ search.terms | escape }}">
+        </form>
+
+        <a href="{{ shop.url }}" class="button button--primary">{{ 'search.general.back' | t }}</a>
+      </div>
+    {% endif %}
+
+    {% if search.performed and search.results_count > 0 %}
+      {% paginate search.results by 50 %}
+        {% include 'list_products', grid_items_per_row: 4, show_vendor: section.settings.show_vendor, show_quick_shop: section.settings.show_quick_shop, show_colors: section.settings.show_colors, show_alternate_image: section.settings.show_alternate_image %}
+      {% assign dm_paginate_by = paginate.page_size %}{% endpaginate %}
+    {% endif %}
+  </div>
+</div>
+
+{% if dm_paginate_by %}{% render 'spurit_dmr_collection_template_snippet', paginate_by: dm_paginate_by %}{% endif %}{% schema %}
+{
+  "name": "Search page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_shop",
+      "label": "Show quick shop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_colors",
+      "label": "Show available colors",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_alternate_image",
+      "label": "Show alternate image on hover",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

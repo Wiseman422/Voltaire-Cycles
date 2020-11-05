@@ -1,0 +1,236 @@
+<div class="cart container">
+  <div class="inner">
+    {% if cart.item_count == 0 %}
+      <div class="cart__empty">
+        <p>{{ 'cart.general.empty' | t }}</p>
+        <a href="{{ shop.url }}" class="button button--primary">{{ 'cart.general.back' | t }}</a>
+      </div>
+    {% else %}
+      <form action="/cart" method="POST" class="cart__form">
+        <table class="cart__table cart__table--mobile table">
+          {% for item in cart.items %}
+			{% include 'bold-cart-item' with item %}
+            <tr class="cart__item cart-item {% include 'w3-product-options', step:'item_row_class' %}" data-index="{{ forloop.index }}" data-variant="{{ item.variant.id }}">
+              <td class="cart-item__image-container">
+                <img class="cart-item__image" src="{{ item.image | img_url: 'medium' }}">
+              </td>
+
+              <td class="cart-item__details">
+                {% if section.settings.show_vendor and item.product.vendor != blank %}
+                  <a href="{{ item.product.vendor | url_for_vendor }}" class="cart-item__vendor">{{ item.product.vendor }}</a>
+                {% endif %}
+
+                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+
+                {% unless item.variant.title contains 'Default' %}
+                <p class="cart-item__variant">{{ item.variant.title }}</p>
+                {% endunless %}
+
+                {% unless item.properties == empty %}
+                <ul class="cart-item__properties list--unstyled">
+                  {% for property in item.properties %}
+                    <li class="cart-item__property">{{ property.first }}: {{ property.last }}</li>
+                  {% endfor %}
+                </ul>
+                {% endunless %}
+
+                <div class="cart-item__actions">
+                  <input class="cart-item__quantity" pattern="[0-9]*" type="number" min="1" value="{{ item.quantity }}" {{ bold_qty_attr }}>
+
+                  <div class="cart-item__price-and-remove">
+                    <span class="cart-item__line-price" data-money-convertible>{{ item.line_price | money }}</span>
+                    {% include 'w3-product-options', step:'money_line' %}
+
+                    {% if item.total_discount > 0 %}
+                      <span class="cart-item__line-price-discounted" data-money-convertible>{{ item.original_line_price | money }}</span>
+                    {% endif %}
+
+                    <a href="/cart/change?quantity=0&line={{ forloop.index }}" class="cart-item__remove link--primary">{{ 'cart.items.remove' | t }}</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+
+        <table class="cart__table cart__table--desktop table">
+          <thead>
+            <tr>
+              <th>{{ 'cart.items.product' | t }}</th>
+              <th></th>
+              <th class="table__center">{{ 'cart.items.unit_price' | t }}</th>
+              <th class="table__center">{{ 'cart.items.quantity' | t }}</th>
+              <th class="table__center">{{ 'cart.items.line_price' | t }}</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody class="cart__items">
+            {% for item in cart.items %}
+			  {% include 'bold-cart-item' with item %}
+              <tr class="cart__item cart-item {% include 'w3-product-options', step:'item_row_class' %}" data-index="{{ forloop.index }}" data-variant="{{ item.variant.id }}">
+                <td class="cart-item__image-container">
+                  <img class="cart-item__image" src="{{ item.image | img_url: 'medium' }}">
+                </td>
+
+                <td class="cart-item__left">
+                  {% if section.settings.show_vendor and item.product.vendor != blank %}
+                    <a href="{{ item.product.vendor | url_for_vendor }}" class="cart-item__vendor">{{ item.product.vendor }}</a>
+                  {% endif %}
+
+                  <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+
+                  {% unless item.variant.title contains 'Default' %}
+                  <p class="cart-item__variant">{{ item.variant.title }}</p>
+                  {% endunless %}
+
+                  {% unless item.properties == empty %}
+                  <ul class="cart-item__properties list--unstyled">
+                    {% for property in item.properties %}
+                      <li class="cart-item__property">{{ property.first }}: {{ property.last }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endunless %}
+                </td>
+
+                <td class="table__center">
+                  <span class="cart-item__unit-price" data-money-convertible>{{ item.price | money }}</span>
+                  {% include 'w3-product-options', step:'money_line' %}
+
+                  {% if item.total_discount > 0 %}
+                    <span class="cart-item__line-price-discounted" data-money-convertible>{{ item.original_price | money }}</span>
+                  {% endif %}
+                </td>
+
+                <td class="table__center">
+                  <input class="cart-item__quantity" type="number" min="1" value="{{ item.quantity }}" {{ bold_qty_attr }}>
+                </td>
+
+                <td class="table__center">
+                  <span class="cart-item__line-price" data-money-convertible>
+                    {{ item.line_price | money }}
+                  </span>
+
+                  {% if item.total_discount > 0 %}
+                    <span class="cart-item__line-price-discounted" data-money-convertible>
+                      {{ item.original_line_price }}
+                    </span>
+                  {% endif %}
+                </td>
+
+                <td class="table__right">
+                  <a href="/cart/change?quantity=0&line={{ forloop.index }}" class="cart-item__remove">
+                    {% capture remove_title %}{{ 'cart.items.remove' | t }}{% endcapture %}
+                    {% include 'icon' with 'cross', title: remove_title %}
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        {% if block.settings.currency_conversion_enabled %}
+          <p class="cart__currency-notice alert alert--mono alert--info">{{ 'cart.general.currency_notice' | t: shop_currency: shop.currency }}</p>
+        {% endif %}
+
+        <p class="cart__total">
+          {{ 'cart.general.total' | t }}:
+          <span class="cart__total-amount" data-money-convertible><span id="revy-cart-subtotal-price">{{ cart.total_price | money }}</span></span>
+          <span class="cart__taxes" style="display: none">{{ 'cart.general.estimated_taxes' | t }}</span>
+        </p>
+
+        <div class="grid grid--right">
+          {% if section.settings.show_notes %}
+            <div class="cart__instructions grid__cell 2/3--handheld-and-up">
+              <label class="form__label" for="note">{{ 'cart.general.note' | t }}</label>
+              <textarea class="cart__note" name="note" id="note" cols="30" rows="5">{{ cart.note }}</textarea>
+            </div>
+          {% endif %}
+
+          <div class="grid__cell 1/3--handheld-and-up">
+            {% if section.settings.enable_terms %}
+              <div class="cart__terms">
+                <input type="checkbox" id="terms">
+
+                {% assign terms_page = pages[block.settings.terms_page] %}
+
+                <label for="terms" class="form__label">
+                  {{ 'cart.general.accept_terms' | t }}
+
+                  {% unless terms_page.empty? %}
+                    <a href="{{ terms_page.url }}" target="_blank">{{ 'cart.general.read_terms' | t }}</a>
+                  {% endunless %}
+                </label>
+              </div>
+            {% endif %}
+
+            <div class="cart__checkout">
+              <input type="submit" name="checkout" class="button button--primary" value="{{ 'cart.general.checkout' | t }}">
+
+              {% if additional_checkout_buttons %}
+                <div class="cart__checkout-with">
+                  <p>{{ 'cart.general.checkout_with' | t }}</p>
+
+                  <div class="cart__additional-buttons">
+                    {{ content_for_additional_checkout_buttons }}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </form>
+    
+      <div id="awarp-shopping-cart-related" data-cart-products='[{% for line in cart.items %}{% if line != cart.items[0] %},{% endif %}{"product_id": {{ line.product_id }}, "variant_id": {{ line.variant_id}}}{% endfor %}]'></div>
+    
+    {% endif %}
+
+    {% if cart.item_count > 0 and section.settings.show_shipping_estimator %}
+      {% include 'shipping_estimator' %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_notes",
+      "label": "Enable order notes",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_terms",
+      "label": "Enable terms and conditions",
+      "default": false
+    },
+    {
+      "type": "page",
+      "id": "terms_page",
+      "label": "Terms and conditions page"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_estimator",
+      "label": "Show shipping rates calculator",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_estimator_default_country",
+      "label": "Default country to use",
+      "info": "If your customer is logged-in, the country in his default shipping address will be selected.",
+      "default": "United States"
+    }
+  ]
+}
+{% endschema %}

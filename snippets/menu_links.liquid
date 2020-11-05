@@ -1,0 +1,62 @@
+{% assign mega_nav = linklists[section.settings.navigation_horizontal_mega_nav] %}
+
+{% if level <= 2 %}
+  <ul class="menu__links menu__links--level-{{ level }} {% if level > 0 %}menu__links--nested{% endif %} list--unstyled">
+    {% for link in current_linklist.links %}
+      {% comment %}
+      If the handle is empty, this means that we are using a non-latin language (Japanese, Hebrew...). For that extent,
+      we need to use another mechanism to detect if there are dropdown
+      {% endcomment %}
+
+      {% assign has_sub_menu = false %}
+      {% assign sub_menu = '' %}
+
+      {% if link.handle == blank %}
+        {% for linklist in linklists %}
+          {% if linklist.title == link.title and linklist.links.size > 0 %}
+            {% assign has_sub_menu = true %}
+            {% assign sub_menu = linklist %}
+
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% if linklists[link.handle] != blank and linklists[link.handle].links.size > 0 %}
+          {% assign has_sub_menu = true %}
+          {% assign sub_menu = linklists[link.handle] %}
+        {% endif %}
+      {% endif %}
+
+      <li class="menu__item {% if link.active %}menu__item--active{% endif %} {% if has_sub_menu and level < 2 %}menu__item--has-submenu{% endif %}">
+        <a href="{{ link.url }}" class="menu__link">
+          {{ link.title }}
+
+          {% if mobile and has_sub_menu %}
+            <div class="menu__icon-container">
+              {% include 'icon' with 'plus' %}
+              {% include 'icon' with 'minus' %}
+            </div>
+          {% endif %}
+        </a>
+
+        {% if has_sub_menu %}
+          {% assign next_level = level | plus: 1 %}
+
+          {% if mobile == false and mega_nav.handle == sub_menu.handle and next_level == 1 %}
+            {% include 'menu_mega_nav', mobile: mobile, mega_nav: sub_menu %}
+          {% else %}
+            {% include 'menu_links', mobile: mobile, current_linklist: sub_menu, level: next_level %}
+          {% endif %}
+
+          {% assign level = next_level | minus: 1 %}
+        {% endif %}
+      </li>
+    {% endfor %}
+
+    {% if mobile == false and level == 0 %}
+      <li class="menu__item">
+        <a href="/search" class="menu__link" data-action="open-mega-search" title="Search">{% include 'icon' with 'search' %}</a>
+      </li>
+    {% endif %}
+  </ul>
+{% endif %}

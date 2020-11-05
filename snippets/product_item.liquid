@@ -1,0 +1,125 @@
+<div class="{% if template == 'product' %}related-products__item{% else %}collection__item{% endif %} product-item {% unless product.available %}product-item--sold-out{% endunless %} grid__cell 1/2--thumb 1/2--handheld 1/{{ grid_items_per_row }}--lap-and-up">
+  {% assign alternate_image = '' %}
+
+  {% if show_alternate_image and product.images.size > 1 %}
+    {% assign alternate_image = '' %}
+
+    {% capture alternate_image %}
+      data-alternate-src="{{ product.images[1] | img_url: image_size, scale: 2 }}"
+    {% endcapture %}
+  {% endif %}
+
+  {% assign featured_image = product.featured_image %}
+
+  <figure class="product-item__figure">
+    <a href="{{ product.url | within: collection }}">
+      {% capture product_labels %}
+        {% unless product.available %}
+          <span class="label label--sold-out">{{ 'product.labels.sold_out' | t }}</span><br>
+        {% else %}
+          {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+            <span class="label label--on-sale">{{ 'product.labels.on_sale' | t }}</span><br>
+          {% endif %}
+        {% endunless %}
+
+        {% assign has_custom_label = false %}
+
+        {% for tag in product.tags %}
+          {% if tag contains '__label' %}
+            <span class="label label--custom">{{ tag | split: '__label:' | last }}</span><br>
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% endcapture %}
+
+      {% if product_labels != blank %}
+        <div class="product__labels">
+          {{ product_labels }}
+        </div>
+      {% endif %}
+
+      <div class="product-item__image-wrapper">
+        {% assign featured_image = product.featured_image %}
+
+        <img class="product-item__image" src="{{ featured_image | img_url: image_size }}" {{ alternate_image }} alt="{{ featured_image.alt | escape }}">
+      </div>
+
+      {% if show_quick_shop %}
+        <span class="button button--small button--full button--secondary button--quick-shop" data-action="open-quick-shop" data-product-id="{{ product.id }}" style="display: none">
+          {{ 'collection.quick_shop.open' | t }}
+        </span>
+      {% endif %}
+    </a>
+  </figure>
+
+  <div class="product-item__details">
+    {% if show_colors %}
+      {% assign file_extension = 'png' %}
+
+      {% assign found_color_option = false %}
+      {% assign color_color_option_index = 0 %}
+      {% assign color_color_option_name = '' %}
+
+      {% for option in product.options %}
+        {% assign downcased_option = option | downcase %}
+
+        {% if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'couleur' %}
+          {% assign found_color_option = true %}
+          {% assign color_option_name = option %}
+          {% assign color_option_index = forloop.index0 %}
+
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% if found_color_option %}
+        {% assign values = '' %}
+
+        <ul class="product-item__colors list--unstyled">
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              {% assign value = variant.options[color_option_index] %}
+
+              {% unless values contains value %}
+                {% assign values = values | join: ',' %}
+                {% assign values = values | append: ',' | append: value %}
+                {% assign values = values | split: ',' %}
+
+                <li class="product-item__color" title="{{ value }}">
+                  <a href="{{ variant.url }}" tabindex="-1">
+                    <span style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | append: '.' | append: file_extension | asset_url }})"></span>
+                  </a>
+                </li>
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endif %}
+
+    {% if show_vendor and product.vendor != blank %}
+      <a href="{{ product.vendor | url_for_vendor }}" class="product-item__vendor">{{ product.vendor }}</a>
+    {% endif %}
+
+    <a href="{{ product.url }}" class="product-item__title">{{ product.title }}</a>
+
+    {% if product.first_available_variant.compare_at_price > product.first_available_variant.price %}
+      <span class="product-item__price product-item__price--new" data-money-convertible>{{ product.first_available_variant.price | money }}</span>
+      <span class="product-item__price product-item__price--old" data-money-convertible>{{ product.first_available_variant.compare_at_price | money }}</span>
+    {% elsif product.price_varies %}
+      {% assign formatted_min_price = product.price_min | money %}
+      <span class="product-item__price" data-money-convertible>{{ 'collection.product.from_price_html' | t: price: formatted_min_price }}</span>
+    {% else %}
+      <span class="product-item__price" data-money-convertible>{{ product.selected_or_first_available_variant.price | money }}</span>
+    {% endif %}
+    {% include 'shappify-sales-clock' %}
+  </div>
+
+  {% comment %}
+  In order to avoid to do an additional HTTP call to get quick shop, we output them directly in the DOM
+  {% endcomment %}
+
+  {% if show_quick_shop %}
+    {% include 'quick_shop', product: product, show_color_swatch: true, ajax_add_to_cart: true %}
+  {% endif %}
+</div>

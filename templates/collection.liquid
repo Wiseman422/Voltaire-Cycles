@@ -1,0 +1,80 @@
+    <div class="index-section--flush powr-popup" id="bdab63df_1561063438"></div>   <div class="index-section--flush powr-popup" id="cdc19ab6_1551495030"></div> {% include 'theme_features' %}
+
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <p class="header__push-meta">{{ 'collection.general.products_count' | t: count: collection.products_count }}</p>
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ collection.title }}</h1>
+
+          {% if theme_features_collection_enable_sorting %}
+            <div class="header__push-filter header__push-filter--sort form__select">
+              {% include 'icon' with 'arrow-bottom' %}
+
+              <select>
+                <option value="manual" {% if collection.sort_by == 'manual' %}selected="selected"{% endif %}>{{ 'collection.sorting.manual' | t }}</option>
+                <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected="selected"{% endif %}>{{ 'collection.sorting.price_ascending' | t }}</option>
+                <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected="selected"{% endif %}>{{ 'collection.sorting.price_descending' | t }}</option>
+                <option value="title-ascending" {% if collection.sort_by == 'title-ascending' %}selected="selected"{% endif %}>{{ 'collection.sorting.az' | t }}</option>
+                <option value="title-descending" {% if collection.sort_by == 'title-descending' %}selected="selected"{% endif %}>{{ 'collection.sorting.za' | t }}</option>
+                <option value="created-ascending" {% if collection.sort_by == 'created-ascending' %}selected="selected"{% endif %}>{{ 'collection.sorting.date_ascending' | t }}</option>
+                <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected="selected"{% endif %}>{{ 'collection.sorting.date_descending' | t }}</option>
+                <option value="best-selling" {% if collection.sort_by == 'best-sellin' %}selected="selected"{% endif %}>{{ 'collection.sorting.best_selling' | t }}</option>
+              </select>
+            </div>
+          {% endif %}
+
+          {% if theme_features_collection_enable_tag_filtering %}
+            {% if collection.all_tags.size > 0 %}
+              {% comment %}This is tags for tablets and desktop{% endcomment %}
+              <ul class="header__push-tags {% if collection.all_tags.size < 5 %}header__push-context{% endif %} list--unstyled">
+                {% for tag in collection.all_tags %}
+                  {% unless tag contains '__' %}
+                    {% if current_tags contains tag %}
+                      <li class="header__push-tag header__push-tag--active">{{ tag | link_to_remove_tag: tag }}</li>
+                    {% else %}
+                      <li class="header__push-tag">
+                        {% if theme_features_collection_enable_cumulative_tag_filtering %}
+                          {{ tag | link_to_add_tag: tag }}
+                        {% else %}
+                          {{ tag | link_to_tag: tag }}
+                        {% endif %}
+                      </li>
+                    {% endif %}
+                  {% endunless %}
+                {% endfor %}
+              </ul>
+
+              {% comment %}This is tags for mobiles{% endcomment %}
+              <div class="header__push-filter header__push-filter--tags form__select">
+                {% include 'icon' with 'arrow-bottom' %}
+
+                <select>
+                  <option value="/collections/{{ collection.handle }}" {% if current_tags.size == 0 %}selected="selected"{% endif %}>{{ 'collection.filter.by_tag' | t }}</option>
+
+                  {% for tag in collection.all_tags %}
+                    {% unless tag contains '__' %}
+                      {% comment %}
+                      Shopify does not offer any url_for_tag filter yet, so we need to be a bit hacky
+                      {% endcomment %}
+
+                      {% assign tag_url = tag | link_to_tag: tag | split: 'href=' %}
+                      {% assign to_remove = '>' | append: tag %}
+                      <option value={{ tag_url[1] | remove: to_remove | strip_html }} {% if current_tags contains tag %}selected="selected"{% endif %}>{{ tag }}</option>
+                    {% endunless %}
+                  {% endfor %}
+                </select>
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+{% section 'collection' %}

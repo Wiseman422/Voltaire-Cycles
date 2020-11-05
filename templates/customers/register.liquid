@@ -1,0 +1,49 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ 'customer.register.title' | t }}</h1>
+          <a href="/account/login" class="header__push-context link--primary">{{ 'customer.register.login_link' | t }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<div class="container account__register">
+  <div class="inner">
+    {% form 'create_customer', class: 'register__form form--shrink' %}
+      {% if form.errors %}
+        <div class="alert alert--error">
+          <span class="alert__title">{{ 'general.forms.errors' | t }}</span>
+          {% include 'form_errors' %}
+        </div>
+      {% endif %}
+
+      <div class="form__control {% if form.errors.message.email %}form__control--error{% endif %}">
+        <label class="form__label" for="customer__first-name">{{ 'customer.register.first_name' | t }}</label>
+        <input type="text" id="customer__first-name" name="customer[first_name]" tabindex="1">
+      </div>
+
+      <div class="form__control {% if form.errors.message.email %}form__control--error{% endif %}">
+        <label class="form__label" for="customer__last-name">{{ 'customer.register.last_name' | t }}</label>
+        <input type="text" id="customer__last-name" name="customer[last_name]" tabindex="2">
+      </div>
+
+      <div class="form__control {% if form.errors.message.email %}form__control--error{% endif %}">
+        <label class="form__label" for="customer__email">{{ 'customer.register.email' | t }}</label>
+        <input type="email" id="customer__email" name="customer[email]" required="required" tabindex="3">
+      </div>
+
+      <div class="form__control {% if form.errors.message.password %}form__control--error{% endif %}">
+        <label class="form__label" for="customer__password">{{ 'customer.register.password' | t }}</label>
+        <input type="password" id="customer__password" name="customer[password]" required="required" tabindex="4">
+      </div>
+
+      <input type="submit" class="button button--primary" value="{{ 'customer.register.submit' | t }}">
+    {% endform %}
+  </div>
+</div>

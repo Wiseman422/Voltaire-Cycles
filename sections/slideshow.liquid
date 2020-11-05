@@ -1,0 +1,216 @@
+{% include 'theme_features' %}
+
+<section class="index-module__section-{{ section.id }} slideshow {% if section.settings.separate_from_header %}slideshow--separate{% else %}slideshow--collapsed{% endif %} {% if theme_features_slider_crop %}slideshow--cropped{% else %}slideshow--uncropped{% endif %}"
+         data-autoplay="{{ section.settings.autoplay }}"
+         data-animation-type="{{ section.settings.animation_type }}"
+         data-cycle-speed="{{ section.settings.cycle_speed }}">
+  <div class="slideshow__slides">
+    {% for block in section.blocks %}
+      <div class="slideshow__slide" {{ block.shopify_attributes }} style="{% if theme_features_slider_crop == true or settings.header_separate_from_slider == false %}background-image: url('{{ block.settings.image | img_url: '1800x' }}');{% endif %} {% unless forloop.first %}display: none;{% endunless %}" data-slide-index="{{ forloop.index0 }}">
+        {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+
+        {% if block.settings.button_text == blank and block.settings.link != blank %}
+          <a href="{{ block.settings.link }}">
+        {% endif %}
+
+        {% if theme_features_slider_crop and section.settings.separate_from_header == false and block.settings.image == blank %}
+          <div class="slideshow__placeholder">
+            {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.image %}
+          <img class="slideshow__image"
+               src="{{ block.settings.image | img_url: '1024x' }}"
+               srcset="{{ block.settings.image | img_url: '600x' }} 600w, {{ block.settings.image | img_url: '1024x' }} 1024w, {{ block.settings.image | img_url: '1800x' }} 1800w"
+               alt="{{ block.settings.image.alt }}">
+        {% else %}
+          {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg slideshow__image' }}
+        {% endif %}
+
+        <div class="slideshow__cover" style="text-align: {{ block.settings.content_position }}">
+          <div class="slideshow__cover-wrapper">
+            <div class="container">
+              {% if block.settings.heading != blank %}
+                {% if block.settings.content_position == 'right' %}
+                  <h1 class="slideshow__heading" style="margin-left: auto">{{ block.settings.heading }}</h1>
+                {% elsif block.settings.content_position == 'left' %}
+                  <h1 class="slideshow__heading" style="margin-right: auto">{{ block.settings.heading }}</h1>
+                {% else %}
+                  <h1 class="slideshow__heading" style="margin-left: auto; margin-right: auto">{{ block.settings.heading }}</h1>
+                {% endif %}
+              {% endif %}
+              
+              {% if block.settings.subheading != blank %}
+                {% if block.settings.content_position == 'right' %}
+                  <h2 class="slideshow__subheading" style="margin-left: auto"><span>{{ block.settings.subheading }}</span></h2>
+                {% elsif block.settings.content_position == 'left' %}
+                  <h2 class="slideshow__subheading" style="margin-right: auto"><span>{{ block.settings.subheading }}</span></h2>
+                {% else %}
+                  <h2 class="slideshow__subheading" style="margin-left: auto; margin-right: auto"><span>{{ block.settings.subheading }}</span></h2>
+                {% endif %}
+              {% endif %}
+
+              {% if block.settings.button_text != blank %}
+                <a href="{{ block.settings.link }}" class="slideshow__button button button--primary">{{ block.settings.button_text }}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        {% if block.settings.button_text == blank and block.settings.link != blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="slideshow__arrows">
+    <div class="container">
+      <a href="#" class="slideshow__arrow slideshow__prev" rel="prev">{% include 'icon' with 'arrow-left' %}</a>
+      <a href="#" class="slideshow__arrow slideshow__next" rel="next">{% include 'icon' with 'arrow-right' %}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Slideshow",
+  "class": "shopify-section__slideshow",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "separate_from_header",
+      "label": "Separate slideshow from header",
+      "info": "This only applies on home page, if the slideshow is the first section",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto rotate between slides",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Animation type",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide",
+          "label": "Slide"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "select",
+      "id": "cycle_speed",
+      "label": "Rotation interval",
+      "options": [
+        {
+          "value": "2000",
+          "label": "2 seconds"
+        },
+        {
+          "value": "4000",
+          "label": "4 seconds"
+        },
+        {
+          "value": "6000",
+          "label": "6 seconds"
+        },
+        {
+          "value": "8000",
+          "label": "8 seconds"
+        },
+        {
+          "value": "12000",
+          "label": "12 seconds"
+        }
+      ],
+      "default": "4000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Tell your brand's story"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Your slideshow"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "If the option \"Separate slideshow from header\" is checked and that no button is present, the whole slide becomes clickable."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "Slideshow",
+      "settings": {
+        "autoplay": true,
+        "animation_type": "slide",
+        "cycle_speed": "6000"
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

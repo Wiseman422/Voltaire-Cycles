@@ -1,0 +1,43 @@
+<nav class="header__mobile-nav">
+  <ul class="header__mobile-tabs list--unstyled">
+    <li class="header__mobile-tab">
+      <a href="#" class="header__mobile-icon" data-has-menu="true">
+        <div class="hamburger">
+          <span>{{ 'layout.header.open_menu' | t }}</span>
+        </div>
+      </a>
+
+      <div class="header__mobile-content header__mobile-menu mobile-menu">
+        {% include 'menu', mobile: true %}
+      </div>
+    </li>
+
+    {% if shop.customer_accounts_enabled %}
+      <li class="header__mobile-tab">
+        <a href="{% if customer %}/account{% else %}/account/login{% endif %}" class="header__mobile-icon" data-has-menu="false">
+          {% include 'icon' with 'user' %}
+        </a>
+      </li>
+    {% endif %}
+
+    <li class="header__mobile-tab">
+      <a href="/cart" class="header__mobile-icon" data-has-menu="false">
+        {% include 'icon' with 'cart' %}
+        <span class="header__cart-count cart-item-count">{{ cart.item_count }}</span>
+      </a>
+    </li>
+
+    <li class="header__mobile-tab">
+      <a href="/search" class="header__mobile-icon" data-has-menu="true">
+        {% include 'icon' with 'search' %}
+      </a>
+
+      <div class="header__mobile-content header__mobile-search mobile-search">
+        <form action="/search" method="get" class="mobile-search__form" role="search">
+          <input type="hidden" name="type" value="{{ settings.search_mode }}">
+          <input type="search" class="mobile-search__input" name="q" aria-label="{{ 'search.autocomplete.placeholder' | t }}" placeholder="{{ 'search.autocomplete.placeholder' | t }}" value="{{ search.terms | escape }}" autofocus="autofocus" autocorrect="off" autocomplete="off">
+        </form>
+      </div>
+    </li>
+  </ul>
+</nav>

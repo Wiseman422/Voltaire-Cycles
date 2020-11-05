@@ -1,0 +1,253 @@
+{% if section.settings.show_announcement %}
+  <section class="top-bar">
+    <div class="top-bar__container container">
+      {% if section.settings.announcement_text != blank %}
+        <span class="top-bar__message">{{ section.settings.announcement_text }}</span>
+      {% endif %}
+
+      <div class="top-bar__contact">
+        {% if section.settings.announcement_show_social %}
+          {% capture top_bar_social_links %}
+            {% include 'social_networks' %}
+          {% endcapture %}
+        {% endif %}
+
+        {% if section.settings.announcement_contact_phone != blank or section.settings.announcement_contact_email != blank or top_bar_social_links != blank %}
+          <a class="top-bar__contact-item" href="/pages/contact">{{ 'layout.top_bar.contact' | t }}</a>
+
+          {% if section.settings.announcement_contact_phone != blank %}
+            <span class="top-bar__contact-item top-bar__contact-item--faded">{{ section.settings.announcement_contact_phone }}</span>
+          {% endif %}
+
+          {% if section.settings.announcement_contact_email != blank %}
+            <a class="top-bar__contact-item top-bar__contact-item--faded" href="/pages/contact">{{ section.settings.announcement_contact_email }}</a>
+          {% endif %}
+
+          {% if top_bar_social_links != blank %}
+            <ul class="top-bar__contact-item top-bar__social list--unstyled">
+              {{ top_bar_social_links }}
+            </ul>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% include 'header_mobile_nav' %}
+
+<div class="header__wrapper {% if section.settings.navigation_position == 'right' %}header__wrapper--right{% endif %}"
+     {% if section.settings.background_image != blank %}data-background-image="{{ section.settings.background_image | img_url: '1400x' }}"{% endif %}>
+  <div class="header__container container">
+    <ul class="accessibility-skip">
+      <li class="accessibility-skip__item"><a href="#nav" class="button button--small button--primary">{{ 'general.accessibility.skip_to_nav' | t }}</a></li>
+      <li class="accessibility-skip__item"><a href="#main" class="button button--small button--primary">{{ 'general.accessibility.skip_to_content' | t }}</a></li>
+      <li class="accessibility-skip__item"><a href="#footer" class="button button--small button--primary">{{ 'general.accessibility.skip_to_footer' | t }}</a></li>
+    </ul>
+
+    <div class="header__logo {% unless section.settings.logo %}header__logo--text{% endunless %}">
+      <a href="{{ shop.url }}" class="header__link">
+        {% if section.settings.logo %}
+          {% capture image_size %}{{ section.settings.logo_max_width | replace: 'px', '' }}x{% endcapture %}
+
+          <img class="header__logo-image"
+               src="{{ section.settings.logo | img_url: image_size }}"
+               srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+               width="{{ section.settings.logo_max_width | replace: 'px', '' }}"
+               alt="{{ section.settings.logo.alt | default: shop.name }}">
+        {% else %}
+          {{ shop.name }}
+        {% endif %}
+      </a>
+    </div>
+
+    <ul class="header__actions list--unstyled">
+      {% if settings.currency_conversion_enabled %}
+        <li class="header__actions-item currency-selector">
+          <select class="currency-selector__select" id="currencies" name="currencies">
+            {% capture codes %}USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK{% endcapture %}
+            {% assign supported_codes = settings.currency_conversion_supported_currencies | upcase | split: ' ' %}
+
+            <option value="{{ shop.currency }}" selected="selected">{{ shop.currency }}</option>
+            {% for code in supported_codes %}
+              {% if code != shop.currency and codes contains code %}
+                <option value="{{ code }}">{{ code }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          {% include 'icon' with 'arrow-bottom' %}
+        </li>
+      {% endif %}
+
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <li class="header__actions-item">
+            <a href="/account">{{ 'layout.header.account' | t }}</a>
+          </li>
+
+          <li class="header__actions-item">
+            <a href="/account/logout">{{ 'layout.header.logout' | t }}</a>
+          </li>
+        {% else %}
+          <li class="header__actions-item">
+            <a href="/account/login">{{ 'layout.header.login' | t }}</a>
+          </li>
+
+          <li class="header__actions-item">
+            <a href="/account/register">{{ 'layout.header.register' | t }}</a>
+          </li>
+        {% endif %}
+      {% endif %}
+
+      <li class="header__actions-item" data-cart-view="data-cart-view">
+        <a href="/cart">{{ 'layout.header.cart' | t }} (<span class="cart-item-count">{{ cart.item_count }}</span>)</a>
+      </li>
+    </ul>
+
+    {% include 'menu', mobile: false %}
+  </div>
+</div>
+
+<style>
+  .top-bar {
+    color: {{ section.settings.announcement_color }};
+    background: {{ section.settings.announcement_background }};
+  }
+
+  .top-bar__contact-item + .top-bar__contact-item::before {
+    color: {{ section.settings.announcement_color }};
+  }
+
+  .top-bar__contact-item--faded,
+  .top-bar__social a {
+    color: {{ section.settings.announcement_color | hex_to_rgba: 0.6 }};
+  }
+
+  a.top-bar__contact-item--faded:hover,
+  .top-bar__social a:hover {
+    color: {{ section.settings.announcement_color | hex_to_rgba: 1 }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "200 x 60px .png recommended"
+    },
+    {
+      "type": "text",
+      "id": "logo_max_width",
+      "label": "Custom logo width (in pixels)",
+      "default": "200"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "1200 x 400px .jpg recommended, applied on all pages except home page"
+    },
+    {
+      "type": "header",
+      "content": "Announcement"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "announcement_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "announcement_background",
+      "label": "Background",
+      "default": "#000414"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Announce something here"
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_show_social",
+      "label": "Show social networks",
+      "info": "Add your social channels in theme settings",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_contact_phone",
+      "label": "Phone number",
+      "default": "0800 600 425"
+    },
+    {
+      "type": "text",
+      "id": "announcement_contact_email",
+      "label": "Email",
+      "default": "example@gmail.com"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "navigation_menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "select",
+      "id": "navigation_position",
+      "label": "Position",
+      "info": "When set to center, the logo will also move to the center",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Mega-navigation",
+      "info": "[Learn more](http://support.maestrooo.com/article/90-navigation-enabling-and-configuring-mega-navigation)"
+    },
+    {
+      "type": "link_list",
+      "id": "navigation_horizontal_mega_nav",
+      "label": "Menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "navigation_horizontal_image",
+      "label": "Default image",
+      "info": "250 x 250px .jpg recommended"
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation_horizontal_switch_image",
+      "label": "Switch image on hover",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

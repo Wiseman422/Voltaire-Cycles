@@ -1,0 +1,142 @@
+<p></p>
+{% include 'affirm_Homepage' %}
+<p></p>
+<section class="index-module index-module__section-{{ section.id }} index-module__products">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2 class="index-module__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% assign collection = collections[section.settings.collection] %}
+    {% assign grid_items_per_row = section.settings.grid_items_per_row %}
+
+    {% unless collection.empty? or collection.products_count == 0 %}
+      {% include 'list_products', collection: collection, grid_items_per_row: grid_items_per_row, show_vendor: section.settings.show_vendor, show_quick_shop: section.settings.show_quick_shop, show_colors: section.settings.show_colors, show_alternate_image: section.settings.show_alternate_image %}
+    {% else %}
+      <div class="collection__list collection__list--infinite-scroll grid grid--gallery grid--gallery-large grid--middle">
+        {% for i in (1..6) %}
+          <div class="collection__item product-item grid__cell 1/2--thumb 1/2--handheld 1/{{ grid_items_per_row }}--lap-and-up">
+            <figure class="product-item__figure">
+              <a href="#">
+                <div class="product-item__image-wrapper">
+                  {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                  {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg product-item__image' }}
+                </div>
+              </a>
+            </figure>
+
+            <div class="product-item__details">
+              {% if section.settings.show_vendor %}
+                <a href="#" class="product-item__vendor">{{ 'home_page.onboarding.brand_title' | t }}</a>
+              {% endif %}
+
+              <a href="#" class="product-item__title">{{ 'home_page.onboarding.product_title' | t }}</a>
+              <span class="product-item__price" data-money-convertible>{{ 1990 | money }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endunless %}
+  </div>
+</section>
+
+<style>
+  .index-module__section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .index-module__section-{{ section.id }} .product-item__title {
+    color: {{ section.settings.text_color }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "class": "shopify-section__featured-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_shop",
+      "label": "Show quick shop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_colors",
+      "label": "Show available colors",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_alternate_image",
+      "label": "Show alternate image on hover",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "grid_items_per_row",
+      "label": "Products per row",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Product",
+      "name": "Featured products"
+    }
+  ]
+}
+{% endschema %}

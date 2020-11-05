@@ -1,0 +1,62 @@
+{% layout none %}
+
+{% assign terms_for_highlight = search.terms | remove: '*' %}
+
+{% capture results %}
+  {% for result in search.results limit: 4 %}
+    {% if result.object_type == 'product' %}
+      {
+        "object_type" : {{ result.object_type | json }},
+        "vendor"      : {{ result.vendor | json }},
+        "title"       : {{ result.title | highlight: terms_for_highlight | json }},
+        "url"         : {{ result.url | json }},
+        "price_min"   : {{ result.price_min | json }},
+        "image"       : {{ result.featured_image | img_url: 'thumb' | json }}
+      },
+    {% elsif result.object_type == 'article' %}
+      {%- assign url_parts = result.url | split: '/' -%}
+      {%- assign article_blog_handle = url_parts[2] -%}
+      {%- assign article_blog = blogs[article_blog_handle] -%}
+
+      {
+        "object_type" : {{ result.object_type | json }},
+        "title"       : {{ result.title | highlight: terms_for_highlight | json }},
+        "url"         : {{ result.url | json }},
+        "image"       : {{ result.image | img_url: 'thumb' | json }},
+        "blog"        : {{ article_blog.title | json }}
+      },
+    {% else %}
+      {% assign src = '' %}
+
+      {% if result.excerpt != blank %}
+        {% assign content_to_extract = result.excerpt %}
+      {% else %}
+        {% assign content_to_extract = result.content %}
+      {% endif %}
+
+      {% include 'img_src_from_text', content_to_extract: content_to_extract, img_size: 'thumb' %}
+
+      {% if src != blank %}
+        {% assign image = src | json %}
+      {% else %}
+        {% assign image = result.featured_image | img_url: 'thumb' | json %}
+      {% endif %}
+
+      {
+        "object_type" : {{ result.object_type | json }},
+        "title"       : {{ result.title | highlight: terms_for_highlight | json }},
+        "url"         : {{ result.url | json }},
+        "image"       : {{ image }}
+      },
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+[
+  {{ results }}
+  {
+    "object_type": "all_results",
+    "results_count": {{ search.results_count }},
+    "url": "/search?q={{ search.terms }}&type={{ settings.search_mode }}"
+  }
+]

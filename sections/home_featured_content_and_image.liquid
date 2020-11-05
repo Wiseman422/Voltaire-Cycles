@@ -1,0 +1,103 @@
+<section class="index-module index-module__section-{{ section.id }} index-module__featured-content-with-image">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2 class="index-module__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% capture image_cell %}
+      <div class="grid__cell 2/5--handheld-and-up">
+        {% if section.settings.image %}
+          <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.image.alt }}">
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+    {% endcapture %}
+
+    <div class="grid grid--middle grid--large">
+      {% if section.settings.image_position == 'left' %}
+        {{ image_cell }}
+      {% endif %}
+
+      <div class="grid__cell 3/5--handheld-and-up rte">
+        {{ section.settings.content }}
+      </div>
+
+      {% if section.settings.image_position == 'right' %}
+        {{ image_cell }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .index-module__section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .index-module__section-{{ section.id }} .placeholder-svg {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.background_color }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Text and image",
+  "class": "shopify-section__featured-content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Your content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Add your own custom content to give more information about your store, availability details...</p>"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Text",
+      "name": "Rich text and image"
+    }
+  ]
+}
+{% endschema %}

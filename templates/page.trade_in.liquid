@@ -1,0 +1,54 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ page.title }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<section class="page">
+  <div class="container">
+    <div class="inner">
+      <div class="page__content rte">
+        {{ page.content }}
+
+		<!-- BBB Trade In Widget -->
+<link href="https://tradein-widget.bicyclebluebook.com/content/widgets/tradein/v2/select2/css/select2.min.css" rel="stylesheet" />
+<script src="https://tradein-widget.bicyclebluebook.com/content/widgets/tradein/v2/jquery/jquery-1.11.3.min.js"></script>
+<script src="https://tradein-widget.bicyclebluebook.com/content/widgets/tradein/v2/select2/js/select2.min.js"></script>
+<script src="https://tradein-widget.bicyclebluebook.com/content/widgets/tradein/v2/bbb.trade-in-eval.js"></script>
+<script type="text/javascript">
+    // BBB - Trade In Widget
+    window.onload = function () {
+            bbbLoad();
+    };
+    function bbbLoad() {
+        var bbbScript = document.createElement("script");
+        bbbScript.type = "text/javascript";
+        bbbScript.src = "https://tradein-widget.bicyclebluebook.com/content/widgets/tradein/v2/bbb.trade-in-eval.js";
+        document.getElementsByTagName("body")[0].appendChild(bbbScript);
+    }
+</script>
+<div class="bbb-widget" data-api-key="939ec52a-a84d-40fc-9984-ebd348cd2ffe"></div>
+
+{{ 'bbb.bootstrap.scss.css' | asset_url | stylesheet_tag }}
+{{ 'bbb.bbb1.scss.css' | asset_url | stylesheet_tag }}
+{{ 'initialize.js' | asset_url | script_tag }}
+        <script type="text/javascript">
+          $.initialize('link[href="https://www.bicyclebluebook.com/resources/css/bootstrap.css"]', function() {
+			$(this).attr('disabled','disabled');
+          });
+          $.initialize('link[href="https://tradein-widget.bicyclebluebook.com/Content/Widgets/TradeIn/V2/bbb1.css"]', function() {
+			$(this).attr('disabled','disabled');
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</section>

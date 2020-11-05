@@ -1,0 +1,122 @@
+<section class="index-module index-module__section-{{ section.id }} index-module__collections">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2 class="index-module__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="collections grid grid--gallery">
+      {% for block in section.blocks %}
+        {%- assign featured_collection = collections[block.settings.collection] -%}
+        {%- assign grid_items_per_row = section.settings.grid_items_per_row -%}
+
+        {% unless featured_collection.empty? %}
+          {% include 'collection_item', collection: featured_collection, collection_url: featured_collection.url, collection_title: featured_collection.title, grid_items_per_row: grid_items_per_row %}
+        {% else %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+
+          <div class="1/2--handheld 1/{{ grid_items_per_row }}--lap-and-up grid__cell" {{ block.shopify_attributes }}>
+            <a href="#" class="collections__item">
+              {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+
+              <div class="collections__overlay"></div>
+              <h3 class="collections__title">{{ 'home_page.onboarding.collection_title' | t }}</h3>
+            </a>
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .index-module__section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured collections",
+  "class": "shopify-section__featured-collections",
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Collections list"
+    },
+    {
+      "type": "select",
+      "id": "grid_items_per_row",
+      "label": "Collections per row",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Collection",
+      "name": "Featured collections",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

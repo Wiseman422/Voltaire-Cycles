@@ -1,0 +1,10 @@
+<div style='display:none' id='shappify_custom_options_{{ product.id }}'></div><script async  src="//secure.apps.shappify.com/apps/options/generate_options.php?shop={{shop.permanent_domain}}&product_id={{ product.id }}&_tmp=1484766304"></script>
+<script>
+  $(window).load(function(){
+    if(typeof shappify_options_{{product.id}} !== "undefined"){
+      if(pojQuery("#shappify_custom_options_{{product.id}}").html() == ""){
+                shappify_options_{{product.id}}();
+      }
+    }
+});
+</script>

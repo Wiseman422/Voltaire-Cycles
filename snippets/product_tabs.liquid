@@ -1,0 +1,183 @@
+{% assign first_page = pages[section.settings.tab_page_1_handle] %}
+{% assign second_page = pages[section.settings.tab_page_2_handle] %}
+{% assign first_custom_page = '' %}
+{% assign second_custom_page = '' %}
+
+{% comment %}
+We allow to add two tabs that are extracted using the tag system. To add such a tag, simply create a page and
+note the handle somewhere.
+Next, add a tag to your product in this form: __tab1:page-handle or __tab2:page-handle
+The theme will automatically link the tab to the page
+{% endcomment %}
+
+{% assign has_unique_tab_1 = false %}
+{% assign has_unique_tab_2 = false %}
+
+{% comment %}First, check the metafields{% endcomment %}
+
+{% if product.metafields.sf_product_tabs.tab_1_title != blank and product.metafields.sf_product_tabs.tab_1_content != blank %}
+  {% assign unique_tab_1_title = product.metafields.sf_product_tabs.tab_1_title %}
+  {% assign unique_tab_1_content = product.metafields.sf_product_tabs.tab_1_content %}
+  {% assign has_unique_tab_1 = true %}
+{% endif %}
+
+{% if product.metafields.sf_product_tabs.tab_2_title != blank and product.metafields.sf_product_tabs.tab_2_content != blank %}
+  {% assign unique_tab_2_title = product.metafields.sf_product_tabs.tab_2_title %}
+  {% assign unique_tab_2_content = product.metafields.sf_product_tabs.tab_2_content %}
+  {% assign has_unique_tab_2 = true %}
+{% endif %}
+
+{% comment %}Then, let's try the tags{% endcomment %}
+
+{% for tag in product.tags %}
+  {% if tag contains '__tab1' %}
+    {% assign first_custom_page = tag | split: ':' | last %}
+    {% assign first_custom_page = pages[first_custom_page] %}
+
+    {% assign unique_tab_1_title = first_custom_page.title %}
+    {% assign unique_tab_1_content = first_custom_page.content %}
+    {% assign has_unique_tab_1 = true %}
+  {% endif %}
+
+  {% if tag contains '__tab2' %}
+    {% assign second_custom_page = tag | split: ':' | last %}
+    {% assign second_custom_page = pages[second_custom_page] %}
+
+    {% assign unique_tab_2_title = second_custom_page.title %}
+    {% assign unique_tab_2_content = second_custom_page.content %}
+    {% assign has_unique_tab_2 = true %}
+  {% endif %}
+{% endfor %}
+
+{% if first_page.handle != blank or second_page.handle != blank or has_unique_tab_1 or has_unique_tab_2 or section.settings.reviews_enabled %}
+  <div class="product__tabs">
+    <div class="product__tab-selector form__select">
+      {% include 'icon' with 'arrow-bottom' %}
+      <select>
+        {% assign current_tab_index = 0 %}
+
+        {% if section.settings.always_show_description == false and product.description != blank %}
+          <option value="{{ current_tab_index }}">{{ 'product.general.description' | t }}</option>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        {% endif %}
+
+        {% if has_unique_tab_1 %}
+          <option value="{{ current_tab_index }}">{{ unique_tab_1_title }}</option>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        {% endif %}
+
+        {% if has_unique_tab_2 %}
+          <option value="{{ current_tab_index }}">{{ unique_tab_2_title }}</option>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        {% endif %}
+
+        {% unless first_page.empty? %}
+          <option value="{{ current_tab_index }}">{{ first_page.title }}</option>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        {% endunless %}
+
+        {% unless second_page.empty? %}
+          <option value="{{ current_tab_index }}">{{ second_page.title }}</option>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        {% endunless %}
+
+        {% if section.settings.reviews_enabled %}
+          <option value="{{ current_tab_index }}">{{ 'product.general.reviews' | t }}</option>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        {% endif %}
+      </select>
+    </div>
+
+    <ul class="product__tabs-title list--unstyled">
+      {% assign current_tab_index = 0 %}
+
+      {% if section.settings.always_show_description == false and product.description != blank %}
+        <li class="product__tab-title {% if current_tab_index == 0 %}product__tab-title--active{% endif %}" data-tab-index="{{ current_tab_index }}" role="tab">
+          <a href="#" onclick="return false">{{ 'product.general.description' | t }}</a>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endif %}
+
+      {% if has_unique_tab_1 %}
+        <li class="product__tab-title {% if current_tab_index == 0 %}product__tab-title--active{% endif %}" data-tab-index="{{ current_tab_index }}" role="tab">
+          <a href="#" onclick="return false">{{ unique_tab_1_title }}</a>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endif %}
+
+      {% if has_unique_tab_2 %}
+        <li class="product__tab-title {% if current_tab_index == 0 %}product__tab-title--active{% endif %}" data-tab-index="{{ current_tab_index }}" role="tab">
+          <a href="#" onclick="return false">{{ unique_tab_2_title }}</a>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endif %}
+
+      {% unless first_page.empty? %}
+        <li class="product__tab-title {% if current_tab_index == 0 %}product__tab-title--active{% endif %}" data-tab-index="{{ current_tab_index }}" role="tab">
+          <a href="#" onclick="return false">{{ first_page.title }}</a>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endunless %}
+
+      {% unless second_page.empty? %}
+        <li class="product__tab-title {% if current_tab_index == 0 %}product__tab-title--active{% endif %}" data-tab-index="{{ current_tab_index }}" role="tab">
+          <a href="#" onclick="return false">{{ second_page.title }}</a>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endunless %}
+
+      {% if section.settings.reviews_enabled %}
+        <li class="product__tab-title {% if current_tab_index == 0 %}product__tab-title--active{% endif %}" data-tab-index="{{ current_tab_index }}" role="tab">
+          <a href="#" onclick="return false">{{ 'product.general.reviews' | t }}</a>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endif %}
+    </ul>
+
+    <ul class="product__tabs-content list--unstyled">
+      {% assign current_tab_index = 0 %}
+
+      {% if section.settings.always_show_description == false and product.description != blank %}
+        <li role="tabpanel" class="product__tab-content {% if current_tab_index == 0 %}product__tab-content--active{% endif %} rte" {% unless current_tab_index == 0 %}style="display: none"{% endunless %}>
+          {{ product.description }}
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endif %}
+
+      {% if has_unique_tab_1 %}
+        <li role="tabpanel" class="product__tab-content {% if current_tab_index == 0 %}product__tab-content--active{% endif %} rte" {% unless current_tab_index == 0 %}style="display: none"{% endunless %}>
+          {{ unique_tab_1_content }}
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endif %}
+
+      {% if has_unique_tab_2 %}
+        <li role="tabpanel" class="product__tab-content {% if current_tab_index == 0 %}product__tab-content--active{% endif %} rte" {% unless current_tab_index == 0 %}style="display: none"{% endunless %}>
+          {{ unique_tab_2_content }}
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endif %}
+
+      {% unless first_page.empty? %}
+        <li role="tabpanel" class="product__tab-content {% if current_tab_index == 0 %}product__tab-content--active{% endif %} rte" {% unless current_tab_index == 0 %}style="display: none"{% endunless %}>
+          {{ first_page.content }}
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endunless %}
+
+      {% unless second_page.empty? %}
+        <li role="tabpanel" class="product__tab-content {% if current_tab_index == 0 %}product__tab-content--active{% endif %} rte" {% unless current_tab_index == 0 %}style="display: none"{% endunless %}>
+          {{ second_page.content }}
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endunless %}
+
+      {% if section.settings.reviews_enabled %}
+        <li role="tabpanel" class="product__tab-content {% if current_tab_index == 0 %}product__tab-content--active{% endif %}" {% unless current_tab_index == 0 %}style="display: none"{% endunless %}>
+          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+          {% assign current_tab_index = current_tab_index | plus: 1 %}
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% endif %}

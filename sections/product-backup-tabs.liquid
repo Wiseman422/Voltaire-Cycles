@@ -1,0 +1,236 @@
+<div class="product container"
+     id="product-{{ product.id }}"
+     data-show-color-swatch="{% if section.settings.show_color_swatch %}true{% else %}false{% endif %}"
+     data-ajax-add-to-cart="{% if section.settings.ajax_add_to_cart %}true{% else %}false{% endif %}">
+  <div class="inner">
+    {% include 'product_details', show_vendor: section.settings.show_vendor, show_color_swatch: section.settings.show_color_swatch, ajax_add_to_cart: section.settings.ajax_add_to_cart %}
+  </div>
+</div>
+
+<div id="awarp-product-related" data-id="{{ product.id }}" data-force_collection_id="{{ collection.id }}" data-collection_id="{{ collection.id }}" data-collection_handle="{{ collection.handle }}"></div>
+
+{% if section.settings.related_products_enabled %}
+  {% unless collection %}
+    {% assign collection = collections.all %}
+  {% endunless %}
+
+  {% include 'related_products', show_vendor: section.settings.related_products_show_vendor, show_alternate_image_on_hover: section.settings.related_products_show_alternate_image_on_hover %}
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var initProduct = function(productElement) {
+      productElement.product({
+        product: {{ product | json }},
+        selectedVariantId: {% if product.selected_variant %}{{ product.selected_variant.id }}{% else %}null{% endif %},
+        enableHistoryState: true,
+        hasColorSwatch: (productElement.attr('data-show-color-swatch') === 'true'),
+        ajaxAddToCart: (productElement.attr('data-ajax-add-to-cart') === 'true')
+      });
+    };
+
+    initProduct($('#product-{{ product.id }}'));
+
+    $(document).on('shopify:section:load', '#shopify-section-product', function(event) {
+      initProduct($(event.target).find('#product-{{ product.id }}'));
+    });
+
+    Shopify.Image.preload({{ product.images | json }}, '1400x');
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_inventory",
+      "label": "Show product inventory",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatch",
+      "label": "Show color swatch",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "ajax_add_to_cart",
+      "label": "Stay on the current page when adding a product",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_text",
+      "label": "Add to cart button hint",
+      "default": "You can change this text in the Theme Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "always_show_description",
+      "label": "Always show description on the right",
+      "info": "If enabled, description will always be displayed on the right, even if you have tabs.",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Image slideshow"
+    },
+    {
+      "type": "select",
+      "id": "showcase_columns",
+      "label": "Size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "big",
+          "label": "Big"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "select",
+      "id": "thumbnails_appearance",
+      "label": "Thumbnails",
+      "options": [
+        {
+          "value": "squared",
+          "label": "Squared"
+        },
+        {
+          "value": "rounded",
+          "label": "Rounded"
+        }
+      ],
+      "default": "rounded"
+    },
+    {
+      "type": "checkbox",
+      "id": "showcase_zoom_enabled",
+      "label": "Enable image zoom",
+      "info": "This is disabled on mobile.",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "showcase_zoom_magnification",
+      "label": "Zoom magnification (if enabled)",
+      "options": [
+        {
+          "value": "0.5",
+          "label": "50%"
+        },
+        {
+          "value": "1",
+          "label": "100%"
+        },
+        {
+          "value": "1.5",
+          "label": "150%"
+        },
+        {
+          "value": "2",
+          "label": "200%"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "header",
+      "content": "Tabs"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more about product tabs.](http://support.maestrooo.com/article/82-product-adding-global-tabs-to-product-pages)"
+    },
+    {
+      "type": "page",
+      "id": "tab_page_1_handle",
+      "label": "First page"
+    },
+    {
+      "type": "page",
+      "id": "tab_page_2_handle",
+      "label": "Second page"
+    },
+    {
+      "type": "paragraph",
+      "content": "Focal also allows you to add specific tab for a given product only. [Learn more about this feature.](http://support.maestrooo.com/article/83-product-adding-different-tabs-per-product)."
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "paragraph",
+      "content": "You need to install the [Shopify's free Product Reviews](https://apps.shopify.com/product-reviews) app before enabling this option."
+    },
+    {
+      "type": "checkbox",
+      "id": "reviews_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Related products"
+    },
+    {
+      "type": "paragraph",
+      "content": "Are you looking for hand-picked related products? You can do it now with our app SuperFields. [Learn more here](http://support.maestrooo.com/article/117-product-choosing-hand-picked-related-products)."
+    },
+    {
+      "type": "checkbox",
+      "id": "related_products_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "related_products_show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "related_products_grid_items",
+      "label": "Products count",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "4"
+    }
+  ]
+}
+{% endschema %}

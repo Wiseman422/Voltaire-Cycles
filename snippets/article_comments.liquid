@@ -1,0 +1,71 @@
+<section id="comments" class="article__comments comments" itemprop="comment" itemscope itemtype="//schema.org/UserComments">
+  <h2 class="comments__section-title">{{ 'blog.comments.title' | t }}</h2>
+  <h3 class="comments__count">{{ 'blog.comments.comments_count' | t: count: article.comments_count }}</h3>
+
+  {% paginate article.comments by 25 %}
+    {% for comment in article.comments %}
+      <article class="comment">
+        <header class="comment__header">
+          <img class="comment__gravatar" alt="{{ comment.author }}" src="//www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}">
+          <p class="comment__author" itemprop="creator">{{ comment.author }}</p>
+          <time class="comment__date" datetime="{{ comment.created_at | date: '%Y-%m-%dT%T' }}" itemprop="commentTime">{{ comment.created_at | date: format: 'month_day_year_time_short' }}</time>
+        </header>
+
+        <div class="comment__content rte" itemprop="commentText">
+          {{ comment.content }}
+        </div>
+      </article>
+    {% endfor %}
+
+    {% capture next_pagination_label %}{{ 'blog.comments.next' | t }}{% endcapture %}
+    {% capture previous_pagination_label %}{{ 'blog.comments.previous' | t }}{% endcapture %}
+
+    {% include 'pagination', next_pagination_label: next_pagination_label, previous_pagination_label: previous_pagination_label, pagination_hash: '#comments' %}
+  {% endpaginate %}
+</section>
+
+<div class="comments__new">
+  <h2 class="comments__section-title">{{ 'blog.comments.write' | t }}</h2>
+
+  {% form 'new_comment', article, class: 'comments__form' %}
+    {% if form.posted_successfully? %}
+      <div class="alert alert--success">
+        {% if blog.moderated? %}
+          <h3 class="alert__title">{{ 'blog.comments.success_moderated' | t }}</h3>
+        {% else %}
+          <h3 class="alert__title">{{ 'blog.comments.success' | t }}</h3>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if form.errors %}
+      <div class="alert alert--error">
+        <h3 class="alert__title">{{ 'general.forms.errors' | t }}</h3>
+        {% include 'form_errors' %}
+      </div>
+    {% endif %}
+
+    <div class="form__row">
+      <div class="form__control {% if form.errors.message.author %}form__control--error{% endif %}">
+        <label class="form__label" for="comment__author">{{ 'blog.comments.name' | t }}</label>
+        <input type="text" id="comment__author" name="comment[author]" value="{{ form.name | escape }}" required="required" tabindex="1">
+      </div>
+
+      <div class="form__control {% if form.errors.message.email %}form__control--error{% endif %}">
+        <label class="form__label" for="comment__email">{{ 'blog.comments.email' | t }}</label>
+        <input type="email" id="comment__email" name="comment[email]" value="{{ form.email | escape }}" required="required" tabindex="2">
+      </div>
+    </div>
+
+    <div class="form__control {% if form.errors.message.body %}form__control--error{% endif %}">
+      <label class="form__label" for="comment__body">{{ 'blog.comments.comment' | t }}</label>
+      <textarea id="comment__body" rows="7" name="comment[body]" required="required" tabindex="3">{{ form.body }}</textarea>
+    </div>
+
+    <input type="submit" class="button button--primary" value="{{ 'blog.comments.submit' | t }}">
+
+    {% if blog.moderated? %}
+      <small class="comments__moderated">{{ 'blog.comments.approval' | t }}</small>
+    {% endif %}
+  {% endform %}
+</div>

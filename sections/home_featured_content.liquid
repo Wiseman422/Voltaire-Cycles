@@ -1,0 +1,116 @@
+<section class="index-module index-module__section-{{ section.id }} index-module__featured-content">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2 class="index-module__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="rte">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'richtext' %}
+            {{ block.settings.content }}
+
+          {% when 'page' %}
+            {% assign page = pages[block.settings.page] %}
+            {{ page.content | default: '<p>Add your own custom content to give more information about your store, availability details...</p>' }}
+        {% endcase %}
+      {% endfor %}
+      {{ section.settings.content }}
+    </div>
+  </div>
+</section>
+
+<style>
+  .index-module__section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .index-module__section-{{ section.id }} .rte {
+    text-align: {{ section.settings.content_position }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured content",
+  "class": "shopify-section__featured-content",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Your title"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "richtext",
+      "name": "Rich text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+          "default": "<p>Add your own custom content to give more information about your store, availability details...</p>"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Text",
+      "name": "Rich text",
+      "blocks": [
+        {
+          "type": "richtext"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

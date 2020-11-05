@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="inner">
+    <article class="article article--full" itemscope itemtype="//schema.org/BlogPosting">
+      <meta itemprop="articleSection" content="{{ blog.title }}">
+      <meta itemprop="keywords" content="{{ article.tags | join: ', ' }}">
+
+      {% include 'article_header', article: article, show_author: section.settings.show_author %}
+
+      {% if article.image %}
+        <img class="article__image" src="{{ article.image | img_url: '1000x' }}" alt="{{ article.title }}">
+      {% endif %}
+
+      <div class="article__body rte" itemprop="articleBody">
+        {{ article.content }}
+      </div>
+
+      <div class="article__footer">
+        {% include 'share_buttons' %}
+
+        {% if article.tags.size > 0 %}
+          <div class="article__tags">
+            <span class="article__tags-label">{{ 'blog.article.tags' | t }}</span>
+
+            <ul class="article__tags-list list--unstyled">
+              {% for tag in article.tags %}
+                <li class="article__tags-item">
+                  <a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %},{% endunless %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </article>
+
+    {% if blog.comments_enabled? %}
+      {% include 'article_comments' %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Article page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author name",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

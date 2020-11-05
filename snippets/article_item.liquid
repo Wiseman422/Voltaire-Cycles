@@ -1,0 +1,14 @@
+<div class="collection__item product-item grid__cell 1/2--thumb 1/2--handheld 1/{{ grid_items_per_row }}--lap-and-up">
+  <figure class="product-item__figure">
+    <a href="{{ article.url }}">
+      <div class="product-item__image-wrapper">
+        <img class="product-item__image" src="{{ article.image | img_url: image_size }}" alt="{{ article.image.alt | escape }}">
+      </div>
+    </a>
+  </figure>
+
+  <div class="product-item__details">
+    <span class="product-item__type">{{ 'search.general.article_type' | t }}</span>
+    <a href="{{ product.url }}" class="product-item__title">{{ article.title }}</a>
+  </div>
+</div>

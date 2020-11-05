@@ -1,0 +1,114 @@
+<section class="index-module index-module__section-{{ section.id }} index-module__newsletter">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2 class="index-module__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% assign form_posted_successfully = false %}
+    {% capture newsletter_form_action %}/contact#shopify-section-{{ section.id }}{% endcapture %}
+
+    {%- capture newsletter_form -%}
+      {%- form 'customer', action: newsletter_form_action, class: 'index-module__newsletter-form' -%}
+        {% if form.posted_successfully? %}
+          {% assign form_posted_successfully = true %}
+        {% endif %}
+
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="{{ 'layout.home.newsletter_placeholder' | t }}">
+        <input type="submit" class="button" value="{{ 'layout.home.newsletter_submit' | t }}">
+      {%- endform -%}
+    {%- endcapture -%}
+
+    {% if section.settings.subtitle != blank %}
+      <div class="rte">
+        {% if form_posted_successfully %}
+          {{ 'layout.home.newsletter_success' | t }}
+        {% else %}
+          {{ section.settings.subtitle }}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% unless form_posted_successfully %}
+      {{ newsletter_form }}
+    {% endunless %}
+  </div>
+</section>
+
+<style>
+  .index-module__section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .index-module__section-{{ section.id }} input[type="submit"] {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.background_color }};
+  }
+
+  .index-module__section-{{ section.id }} input[type="submit"]:hover {
+     background: {{ section.settings.text_color }};
+  }
+
+  .index-module__section-{{ section.id }} input[type="email"] {
+    background: {{ section.settings.input_background }};
+  }
+
+  .index-module__section-{{ section.id }} input[type="email"],
+  .index-module__section-{{ section.id }} input[type="email"]::placeholder {
+    color: {{ section.settings.text_color }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "class": "shopify-section__newsletter",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)."
+    },
+    {
+      "type": "paragraph",
+      "content": "You can sync your customers with a newsletter service by installing their app."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Enter your email and we'll let you know of our latest news!"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Email field background",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Promotional",
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

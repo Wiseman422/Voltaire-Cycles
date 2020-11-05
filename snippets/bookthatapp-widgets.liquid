@@ -1,0 +1,18 @@
+{% capture subdomain %}{{ shop.permanent_domain | split:'.' | first }}{% endcapture %}
+
+<script src="//www.bookthatapp.com/sdk/v1/js/bta-in-shopify.min.js"></script>
+
+<script>
+    window.BtaConfig = JSON.parse('{{ shop.metafields.bookthatapp.config }}' || '{}'),
+    window.BtaSdk = BookThatApp.init('{{ shop.metafields.bookthatapp.api_token }}')
+
+    BtaWidgetLoader.render({
+      account: '{{ subdomain }}',
+      externalId: '{{ product.id }}',
+      cart: {{cart | json}},
+      shopConfig: BtaConfig,
+      onSubmit: function(reservation) {
+        BtaConvertReservationToCart.addToCart(reservation, BtaConfig)
+      }
+    })
+</script>

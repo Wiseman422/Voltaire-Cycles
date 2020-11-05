@@ -1,0 +1,15 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ 'collections.general.title' | t }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+{% section 'list_collections' %}

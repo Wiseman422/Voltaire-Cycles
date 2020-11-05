@@ -1,0 +1,72 @@
+{% capture push_header %}
+  <div class="header__push">
+    <div class="container">
+      <div class="inner">
+        {% include 'breadcrumb' %}
+
+        <div class="header__push-content">
+          <h1 class="header__push-title">{{ 'customer.account.title' | t }}</h1>
+          <a href="/account/logout" class="header__push-context link--primary">{{ 'customer.account.logout' | t }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<section class="container">
+  <div class="inner">
+    <div class="account__orders grid grid--large">
+      <div class="grid__cell 2/3--lap-and-up">
+        {% if customer.orders.size == 0 %}
+          <div class="alert alert--error">
+            <h3 class="alert__title">{{ 'customer.orders.none' | t }}</h3>
+          </div>
+        {% else %}
+          {% paginate customer.orders by 25 %}
+            <table class="orders__table table table--responsive">
+              <thead>
+                <tr>
+                  <th>{{ 'customer.orders.order_number' | t }}</th>
+                  <th>{{ 'customer.orders.date' | t }}</th>
+                  <th>{{ 'customer.orders.payment_status' | t }}</th>
+                  <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                  <th>{{ 'customer.orders.total' | t }}</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for order in customer.orders %}
+                  <tr class="orders__order">
+                    <td data-label="{{ 'customer.orders.order_number' | t }}">
+                      <a href="{{ order.customer_url }}" class="link--primary">{{ order.name }}</a>
+                    </td>
+                    <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}</td>
+                    <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                    <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                    <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            {% capture next_pagination_label %}{{ 'customer.orders.next' | t }}{% endcapture %}
+            {% capture previous_pagination_label %}{{ 'customer.orders.previous' | t }}{% endcapture %}
+
+            {% include 'pagination', next_pagination_label: next_pagination_label, previous_pagination_label: previous_pagination_label %}
+          {% endpaginate %}
+        {% endif %}
+      </div>
+
+    <div class="grid__cell 1/3--lap-and-up">
+      {% if customer.default_address %}
+        {% include 'customer_address', class: 'account__address account__address--default', address: customer.default_address %}
+      {% else %}
+        <div class="account__address account__address--default address">
+          <h3 class="address__customer">{{ customer.name }}</h3>
+
+          <a href="account/addresses" class="address__see-all link--primary">{{ 'customer.address.empty' | t }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

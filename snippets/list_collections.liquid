@@ -1,0 +1,21 @@
+{% unless list_collections_linklist.empty? %}
+  <div class="collections grid grid--gallery">
+    {% for link in list_collections_linklist.links %}
+      {% if link.type != 'collection_link' %}
+        {% continue %}
+      {% endif %}
+
+      {% include 'collection_item', collection: link.object, collection_url: link.url, collection_title: link.title  %}
+    {% endfor %}
+  </div>
+{% else %}
+  {% if allow_all_collections %}
+    <div class="collections grid grid--gallery">
+      {% for collection in collections %}
+        {% unless collection.handle == 'frontpage' %}
+          {% include 'collection_item', collection: collection, collection_url: collection.url, collection_title: collection.title %}
+        {% endunless %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endunless %}

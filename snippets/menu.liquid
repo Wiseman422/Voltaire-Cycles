@@ -1,0 +1,8 @@
+{% assign navigation_menu_handle = section.settings.navigation_menu | default: 'main-menu' %}
+{% assign navigation_menu = linklists[navigation_menu_handle] %}
+
+{% if navigation_menu.links.size > 0 %}
+  <nav {% unless mobile %}id="nav"{% endunless %} class="menu {% if mobile %}menu--mobile{% else %}menu--desktop{% endif %}">
+    {% include 'menu_links', mobile: mobile, current_linklist: navigation_menu, level: 0 %}
+  </nav>
+{% endif %}

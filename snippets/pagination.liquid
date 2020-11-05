@@ -1,0 +1,49 @@
+{% if paginate.pages > 1 %}
+  <div class="pagination">
+    {% if paginate.previous %}
+      {% if previous_pagination_label == blank %}
+        {% capture previous_pagination_label %}{{ 'general.pagination.prev' | t }}{% endcapture %}
+      {% endif %}
+
+      <a class="pagination__prev" rel="prev" href="{{ paginate.previous.url }}{{ pagination_hash }}">
+        <span class="pagination__label">
+          {% include 'icon' with 'arrow-left' %}
+          {{ previous_pagination_label }}
+        </span>
+      </a>
+    {% endif %}
+
+    <ul class="pagination__list list--unstyled">
+      {% for part in paginate.parts %}
+        {% if part.is_link %}
+          <li class="pagination__item">
+            <a href="{{ part.url }}">{{ part.title }}</a>
+          </li>
+        {% else %}
+          {% if part.title == paginate.current_page %}
+            <li class="pagination__item pagination__item--active">
+              <span>{{ part.title }}</span>
+            </li>
+          {% else %}
+            <li class="pagination__item">
+              <span>{{ part.title }}</span>
+            </li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    {% if paginate.next %}
+      {% if next_pagination_label == blank %}
+        {% capture next_pagination_label %}{{ 'general.pagination.next' | t }}{% endcapture %}
+      {% endif %}
+
+      <a class="pagination__next" rel="next" href="{{ paginate.next.url }}{{ pagination_hash }}">
+        <span class="pagination__label">
+          {{ next_pagination_label }}
+          {% include 'icon' with 'arrow-right' %}
+        </span>
+      </a>
+    {% endif %}
+  </div>
+{% endif %}

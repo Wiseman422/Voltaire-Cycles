@@ -1,0 +1,63 @@
+{% case section.settings.showcase_columns %}
+  {% when 'small' %}
+    {% assign product_showcase_grid_class = '2/5--lap-and-up' %}
+    {% assign product_showcase_image_size = '600x' %}
+    {% assign product_info_grid_class = '3/5--lap-and-up' %}
+
+  {% when 'normal' %}
+    {% assign product_showcase_grid_class = '1/2--lap-and-up' %}
+    {% assign product_showcase_image_size = '900x' %}
+    {% assign product_info_grid_class = '1/2--lap-and-up' %}
+
+  {% when 'big' %}
+    {% assign product_showcase_grid_class = '3/5--lap-and-up' %}
+    {% assign product_showcase_image_size = '1100x' %}
+    {% assign product_info_grid_class = '2/5--lap-and-up' %}
+{% endcase %}
+
+<div class="product__details" itemscope itemtype="//schema.org/Product">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+  {% include 'product_meta', for_mobile: true, context: 'product' %}
+
+  {% capture product_tabs %}
+    {% include 'product_tabs' %}
+  {% endcapture %}
+
+  <div class="grid">
+    {% include 'product_slideshow' %}
+
+    <div class="product__info grid__cell {{ product_info_grid_class }}">
+      {% include 'product_meta', for_mobile: false, context: 'product' %}
+
+      {% include 'product_form', form_type: 'main-product' %}
+      <!-- Product bundle app code -->
+		<div class="th_pb_section" id="th_product_bundle" data-id="{{ product.id }}"></div>
+
+      {% if product_tabs == blank and product.description != blank %}
+        {% assign first_description_condition = true %}
+      {% else %}
+        {% assign first_description_condition = false %}
+      {% endif %}
+
+      {% if first_description_condition or section.settings.always_show_description %}
+        <div class="product__description">
+          <h2 class="product__description-label">{{ 'product.general.description' | t }}</h2>
+
+          <div class="rte">
+            {% comment %}
+            Old description
+            {{ product.description }}
+            {% endcomment %}
+            {% include 'custom-product-tabs' %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% include 'share_buttons' %}
+    </div>
+  </div>
+
+  {{ product_tabs }}
+</div>

@@ -1,0 +1,43 @@
+<section class="quick-shop" data-product-id="{{ product.id }}" data-initialized="false" style="display: none">
+  {% comment %}
+  Left part is the slideshow. Contrary to the main product, we only display a limited set of pictures (only the featured image
+  as well as the images that are attached to a variant). Note also that all images are lazy loaded to avoid loading images
+  {% endcomment %}
+
+  <ul class="quick-shop__slideshow list--unstyled">
+    <li class="quick-shop__slideshow-slide" data-image-id="{{ product.featured_image.id }}">
+      <img class="quick__slideshow-image" data-lazy="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+    </li>
+
+    {% for image in product.images %}
+      {% if image.id != product.featured_image.id and image.attached_to_variant? %}
+        <li class="quick-shop__slideshow-slide" data-image-id="{{ image.id }}">
+          <img class="quick-shop__slideshow-image" data-lazy="{{ image | img_url: 'large' }}" alt="{{ image.alt | escape }}">
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <div class="quick-shop__product">
+    {% include 'product_meta', for_mobile: false, context: 'quick-shop' %}
+
+    {% include 'product_form', form_type: 'quick-shop' %}
+
+    <a href="{{ product.url }}" class="quick-shop__see-more link--primary">
+      {{ 'collection.quick_shop.see_more' | t }}
+      {% include 'icon' with 'arrow-right-2' %}
+    </a>
+  </div>
+
+  <script>
+    var initializeQuickShop{{ product.id }} = function() {
+      $('.quick-shop[data-product-id="{{ product.id }}"]').first().product({
+        product: {{ product | json }},
+        selectedVariantId: {{ product.selected_or_first_available_variant.id }},
+        enableHistoryState: false,
+        hasColorSwatch: true,
+        ajaxAddToCart: true
+      });
+    }
+  </script>
+</section>

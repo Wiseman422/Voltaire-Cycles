@@ -1,0 +1,7 @@
+{% if block.settings.logo %}
+  <section class="footer__module footer__module--centered" {{ block.shopify_attributes }}>
+    <a href="/">
+      <img class="footer__logo" src="{{ block.settings.logo | img_url: '300x' }}" alt="{{ block.settings.logo.alt | default: shop.name }}">
+    </a>
+  </section>
+{% endif %}

@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="inner">
+    <section class="blog__articles grid">
+      {% paginate blog.articles by 9 %}
+        {% for article in blog.articles %}
+          {% include 'blog_article_item', article: article, show_author: section.settings.show_author %}
+        {% endfor %}
+
+        {% capture older_pagination_label %}{{ 'blog.articles.next' | t }}{% endcapture %}
+        {% capture newer_pagination_label %}{{ 'blog.articles.previous' | t }}{% endcapture %}
+
+        {% include 'pagination', next_pagination_label: newer_pagination_label, previous_pagination_label: older_pagination_label %}
+      {% assign dm_paginate_by = paginate.page_size %}{% endpaginate %}
+    </section>
+  </div>
+</div>
+
+{% if dm_paginate_by %}{% render 'spurit_dmr_collection_template_snippet', paginate_by: dm_paginate_by %}{% endif %}{% schema %}
+{
+  "name": "Blog page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author name",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
